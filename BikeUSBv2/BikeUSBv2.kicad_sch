@@ -1612,6 +1612,10 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 7c41183f-5023-4d7d-8ff7-2a9df7a9b3a0)
   )
+  (text "TODO: check if button pins are interrupt capable" (at 80.645 158.115 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 7eeeee2a-abb1-4d7a-8262-64e1a2cbaa6a)
+  )
   (text "TODO: detecting high generator RPM and switching on 1.5A mode resistors in firmware"
     (at 100.965 163.83 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
