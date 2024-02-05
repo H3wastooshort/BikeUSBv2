@@ -1290,6 +1290,12 @@
   (junction (at 167.64 68.58) (diameter 0) (color 0 0 0 0)
     (uuid c7ceb748-490e-4bab-81fa-232fd66edae7)
   )
+  (junction (at 128.905 53.975) (diameter 0) (color 0 0 0 0)
+    (uuid d76dd4cf-2468-418f-9e3f-28d121c93960)
+  )
+  (junction (at 128.905 61.595) (diameter 0) (color 0 0 0 0)
+    (uuid d981711e-b12b-413d-9ef1-a28be4b2ed7a)
+  )
   (junction (at 175.26 100.33) (diameter 0) (color 0 0 0 0)
     (uuid f9c4ec13-b216-4df6-be6c-ce5745c39a58)
   )
@@ -1365,6 +1371,10 @@
   (wire (pts (xy 76.835 179.07) (xy 71.12 179.07))
     (stroke (width 0) (type default))
     (uuid 3d46a477-c5b0-4190-aea1-4dbcf6013cd1)
+  )
+  (wire (pts (xy 118.11 53.975) (xy 128.905 53.975))
+    (stroke (width 0) (type default))
+    (uuid 48cadcde-3d04-4dc5-b9b6-bb80c978cec9)
   )
   (wire (pts (xy 160.02 88.9) (xy 165.1 88.9))
     (stroke (width 0) (type default))
@@ -1493,6 +1503,10 @@
   (wire (pts (xy 52.07 92.71) (xy 52.07 86.995))
     (stroke (width 0) (type default))
     (uuid ae7bb7f9-abeb-4ed7-a82d-d4802e2a1f0d)
+  )
+  (wire (pts (xy 118.11 61.595) (xy 128.905 61.595))
+    (stroke (width 0) (type default))
+    (uuid b7833f41-54fc-4b6e-ad7a-d620c894605e)
   )
   (wire (pts (xy 175.26 68.58) (xy 167.64 68.58))
     (stroke (width 0) (type default))
@@ -2496,6 +2510,32 @@
     )
   )
 
+  (symbol (lib_id "Device:C") (at 118.11 57.785 0) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no)
+    (uuid 5fbcc37b-ed2e-410e-8610-b4d94c817a92)
+    (property "Reference" "C11" (at 120.65 56.515 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "100n" (at 120.65 59.055 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" (at 119.0752 61.595 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "~" (at 118.11 57.785 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 28f4ec47-6b42-4b6b-bb6d-3af1a219b015))
+    (pin "2" (uuid c115f414-0384-42a2-945a-b6d850cf5659))
+    (instances
+      (project "BikeUSBv2"
+        (path "/b4aff538-5116-4944-9d24-c26a88d7dfe8"
+          (reference "C11") (unit 1)
+        )
+      )
+    )
+  )
+
   (symbol (lib_id "Connector:USB_C_Receptacle_PowerOnly_6P") (at 209.55 92.71 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 6672c027-e524-47c0-9b96-a0035a5c96e1)
@@ -2767,7 +2807,7 @@
   (symbol (lib_id "Device:R") (at 160.02 92.71 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 855edade-0c4c-4118-8810-62b6c4ccdffd)
-    (property "Reference" "R1" (at 157.48 92.71 90)
+    (property "Reference" "R3" (at 157.48 92.71 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "47k" (at 160.02 92.71 90)
@@ -2784,7 +2824,7 @@
     (instances
       (project "BikeUSBv2"
         (path "/b4aff538-5116-4944-9d24-c26a88d7dfe8"
-          (reference "R1") (unit 1)
+          (reference "R3") (unit 1)
         )
       )
     )
@@ -2901,7 +2941,7 @@
   (symbol (lib_id "Device:R") (at 175.26 92.71 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 9df1ffc8-68fc-48b0-bfa2-f5c3b2057eb6)
-    (property "Reference" "R4" (at 172.72 92.71 90)
+    (property "Reference" "R2" (at 172.72 92.71 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "47k" (at 175.26 92.71 90)
@@ -2918,7 +2958,7 @@
     (instances
       (project "BikeUSBv2"
         (path "/b4aff538-5116-4944-9d24-c26a88d7dfe8"
-          (reference "R4") (unit 1)
+          (reference "R2") (unit 1)
         )
       )
     )
@@ -3028,7 +3068,7 @@
   (symbol (lib_id "Device:R") (at 165.1 92.71 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid a3ec3f54-4e2f-4ca4-8e9d-cdb897a7edd1)
-    (property "Reference" "R2" (at 162.56 92.71 90)
+    (property "Reference" "R4" (at 162.56 92.71 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "47k" (at 165.1 92.71 90)
@@ -3045,7 +3085,7 @@
     (instances
       (project "BikeUSBv2"
         (path "/b4aff538-5116-4944-9d24-c26a88d7dfe8"
-          (reference "R2") (unit 1)
+          (reference "R4") (unit 1)
         )
       )
     )
@@ -3762,7 +3802,7 @@
   (symbol (lib_id "Device:R") (at 170.18 92.71 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid f902935d-d192-4728-b136-d42a08dda148)
-    (property "Reference" "R3" (at 167.64 92.71 90)
+    (property "Reference" "R1" (at 167.64 92.71 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "47k" (at 170.18 92.71 90)
@@ -3779,7 +3819,7 @@
     (instances
       (project "BikeUSBv2"
         (path "/b4aff538-5116-4944-9d24-c26a88d7dfe8"
-          (reference "R3") (unit 1)
+          (reference "R1") (unit 1)
         )
       )
     )
