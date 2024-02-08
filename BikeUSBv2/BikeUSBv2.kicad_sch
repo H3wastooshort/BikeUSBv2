@@ -1757,7 +1757,7 @@
   (symbol (lib_id "Device:LED") (at 88.265 179.07 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 0d55e193-c141-4612-8cef-01ac17ce2634)
-    (property "Reference" "D9" (at 86.36 175.26 0)
+    (property "Reference" "D4" (at 86.36 175.26 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "XL-2012SURC" (at 90.805 175.26 0)
@@ -1777,7 +1777,7 @@
     (instances
       (project "BikeUSBv2"
         (path "/b4aff538-5116-4944-9d24-c26a88d7dfe8"
-          (reference "D9") (unit 1)
+          (reference "D4") (unit 1)
         )
       )
     )
@@ -2129,7 +2129,7 @@
   (symbol (lib_id "Device:D_Schottky") (at 23.495 84.455 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 38853160-1dd8-4b7d-a23c-5b973e9b523c)
-    (property "Reference" "D5" (at 25.4 84.455 90)
+    (property "Reference" "D6" (at 25.4 84.455 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "CMS04(TE12L,Q,M)" (at 25.4 85.725 90)
@@ -2152,7 +2152,7 @@
     (instances
       (project "BikeUSBv2"
         (path "/b4aff538-5116-4944-9d24-c26a88d7dfe8"
-          (reference "D5") (unit 1)
+          (reference "D6") (unit 1)
         )
       )
     )
@@ -2211,7 +2211,7 @@
   (symbol (lib_id "Device:D_Zener") (at 20.32 55.88 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 41042ba3-78b7-48cb-8cd6-36f05a11c2dd)
-    (property "Reference" "D8" (at 22.86 54.61 90)
+    (property "Reference" "D9" (at 22.86 54.61 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "1SMB5919BT3G" (at 22.86 57.15 90)
@@ -2231,7 +2231,7 @@
     (instances
       (project "BikeUSBv2"
         (path "/b4aff538-5116-4944-9d24-c26a88d7dfe8"
-          (reference "D8") (unit 1)
+          (reference "D9") (unit 1)
         )
       )
     )
@@ -2736,7 +2736,7 @@
   (symbol (lib_id "Device:D_Schottky") (at 23.495 92.075 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 7dc93ec7-b1e0-4e9e-a240-5682a047d0b8)
-    (property "Reference" "D4" (at 25.4 92.075 90)
+    (property "Reference" "D5" (at 25.4 92.075 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "CMS04(TE12L,Q,M)" (at 25.4 93.345 90)
@@ -2759,7 +2759,7 @@
     (instances
       (project "BikeUSBv2"
         (path "/b4aff538-5116-4944-9d24-c26a88d7dfe8"
-          (reference "D4") (unit 1)
+          (reference "D5") (unit 1)
         )
       )
     )
@@ -3561,7 +3561,7 @@
   (symbol (lib_id "Device:D_Schottky") (at 35.56 84.455 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid dd5d07f4-0006-4b98-b318-d1f2825b04c4)
-    (property "Reference" "D6" (at 31.115 84.455 90)
+    (property "Reference" "D8" (at 31.115 84.455 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "CMS04(TE12L,Q,M)" (at 32.385 85.725 90)
@@ -3584,7 +3584,7 @@
     (instances
       (project "BikeUSBv2"
         (path "/b4aff538-5116-4944-9d24-c26a88d7dfe8"
-          (reference "D6") (unit 1)
+          (reference "D8") (unit 1)
         )
       )
     )
