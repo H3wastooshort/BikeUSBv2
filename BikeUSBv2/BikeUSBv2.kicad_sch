@@ -1220,6 +1220,8 @@
   (no_connect (at 71.12 153.67) (uuid 011be112-c548-4fc2-ab0e-973392dd726a))
   (no_connect (at 71.12 168.91) (uuid 0cd86450-623d-4f85-9d08-ca92655a2b41))
   (no_connect (at 71.12 181.61) (uuid 2085b2ca-aabd-4c16-b8e7-62c7507bf185))
+  (no_connect (at 40.64 173.99) (uuid 55e5e211-8304-4c33-9916-38f9b6dd832b))
+  (no_connect (at 40.64 176.53) (uuid 7a96b0ad-370b-4bd8-ac99-163ad125f3e6))
   (no_connect (at 71.12 156.21) (uuid 7ddcb3c8-d802-4d4f-8da3-8eb4ada8bd52))
   (no_connect (at 71.12 158.75) (uuid a3f06d33-cbda-462b-88f6-81cd3bd82212))
 
@@ -1454,21 +1456,6 @@
   (wire (pts (xy 70.485 95.885) (xy 78.105 95.885))
     (stroke (width 0) (type default))
     (uuid fdd2aebe-f5c5-49ee-bb69-c986b34cf793)
-  )
-
-  (text "TODO: cool looking power conversion steps graphics for pcb"
-    (at 107.95 153.035 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 7c41183f-5023-4d7d-8ff7-2a9df7a9b3a0)
-  )
-  (text "TODO: check if button pins are interrupt capable" (at 80.645 158.115 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 7eeeee2a-abb1-4d7a-8262-64e1a2cbaa6a)
-  )
-  (text "TODO: detecting high generator RPM and switching on 1.5A mode resistors in firmware"
-    (at 100.965 163.83 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid e88bc4aa-d879-402a-9cdf-0205b7d2d323)
   )
 
   (label "AC2" (at 33.02 106.68 180) (fields_autoplaced)
