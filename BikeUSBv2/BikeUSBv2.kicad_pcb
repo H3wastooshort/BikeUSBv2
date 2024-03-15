@@ -457,9 +457,14 @@
       ) (tstamp d8fd59bb-c4c3-4f78-b8ec-54c3966068fd))
     (pad "21" smd rect (at 0 0) (size 1.7 1.7) (layers "F.Cu" "F.Mask")
       (net 2 "GND") (pinfunction "GND") (pintype "passive") (tstamp 0035d4c8-e709-4400-b86f-1f7125bdd28a))
-    (model "${KICAD6_3DMODEL_DIR}/Package_DFN_QFN.3dshapes/VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm.wrl"
+    (model "${KICAD6_3DMODEL_DIR}/Package_DFN_QFN.3dshapes/VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm.wrl" hide
       (offset (xyz 0 0 0))
       (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 0))
+    )
+    (model ":KICAD7_3DMODEL_DIR:Package_DFN_QFN.3dshapes/QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm.wrl"
+      (offset (xyz 0 0 0))
+      (scale (xyz 0.9 0.9 1))
       (rotate (xyz 0 0 0))
     )
   )
@@ -873,8 +878,13 @@
       (net 2 "GND") (pinfunction "SHIELD") (pintype "passive") (tstamp c04660e2-27f3-4bf3-aaf5-2d07b0cbad91))
     (pad "S1" thru_hole oval (at 4.32 2.11 90) (size 1 2) (drill oval 0.500024 1.400048) (layers "*.Cu" "*.Mask")
       (net 2 "GND") (pinfunction "SHIELD") (pintype "passive") (tstamp e1fb4d87-8ddb-41a4-9ed7-31f97aef9bf5))
-    (model "${EASYEDA2KICAD}/easyeda2kicad.3dshapes/USB-C-SMD_TYPE-C-6PIN-2MD-073.wrl"
+    (model "${EASYEDA2KICAD}/easyeda2kicad.3dshapes/USB-C-SMD_TYPE-C-6PIN-2MD-073.wrl" hide
       (offset (xyz 0 -1.25 1.5))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 0))
+    )
+    (model ":KICAD7_3DMODEL_DIR:Connector_USB.3dshapes/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.wrl"
+      (offset (xyz 0 -1.5 0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
     )
@@ -2178,7 +2188,7 @@
           )
           (width 0.1) (fill yes))
       ) (tstamp cb44eff1-9c3b-4b13-9cb6-989de1ea9943))
-    (model "${EASYEDA2KICAD}/easyeda2kicad.3dshapes/VSON-14_L4.0-W3.0-H1.0-P0.50.wrl"
+    (model "${EASYEDA2KICAD}/easyeda2kicad.3dshapes/VSON-14_L4.0-W3.0-H1.0-P0.50.wrl" hide
       (offset (xyz 0 -0 -0))
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 270))
