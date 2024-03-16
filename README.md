@@ -4,7 +4,7 @@ This Project does just that, for cheap (ish).
 
 ![a rendered image of the PCB front](/images/pcb_top_angle.png)
 ![a rendered image of the PCB back](/images/pcb_bot_angle.png)
-images as of 2024-03-15
+images as of 2024-03-16 c0e82243ed16811bd29c7a487a223f36078513f8
 
 ## Working Principle
 The incoming AC voltage from the dynamo gets rectified by 4 shottky-diodes and buffered in a high-capacity capacitor.
