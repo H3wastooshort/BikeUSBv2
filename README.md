@@ -2,8 +2,8 @@
 Ever wanted to charge your phone of your bikes dynamo?
 This Project does just that, for cheap (ish).
 
-![a rendered image of the PCB front](/images/pcb_angle.jpg)
-![a rendered image of the PCB back](/images/pcb_back_angle.jpg)
+![a rendered image of the PCB front](/images/pcb_top_angle.png)
+![a rendered image of the PCB back](/images/pcb_bot_angle.png)
 images as of 2024-03-15
 
 ## Working Principle
