@@ -28,7 +28,7 @@ fp-info-cache
 *.xml
 *.csv
 *.lck
-BikeUSBv2/\#auto_saved_files\#
-BikeUSBv2/jlcpcb/production_files
-BikeUSBv2/jlcpcb/gerber
-BikeUSBv2/BikeUSBv2.kicad_sch_old
+hardware/\#auto_saved_files\#
+hardware/jlcpcb/production_files
+hardware/jlcpcb/gerber
+hardware/BikeUSBv2.kicad_sch_old
