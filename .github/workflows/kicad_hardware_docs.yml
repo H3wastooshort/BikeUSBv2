@@ -1,0 +1,126 @@
+name: KiCad_CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'hardware/BikeUSBv2.kicad_sch'
+      - 'hardware/BikeUSBv2.kicad_pcb'
+#  pull_request:
+#    branches: [ main ]
+#    paths:
+#      - 'hardware/BikeUSBv2.kicad_sch'
+#      - 'hardware/BikeUSBv2.kicad_pcb'
+
+jobs:
+#  ERC:
+#    runs-on: ubuntu-latest
+#    container: ghcr.io/inti-cmnb/kicad7_auto
+#
+#    steps:
+#    - uses: actions/checkout@v4
+#
+#    - name: Run ERC
+#      run: |
+#        [ -f hardware/*.sch ] && kiplot  -d Fabrication -s update_xml,run_erc -i
+#
+#    - name: Retrieve results
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: ERC
+#        path: Fabrication
+
+#  DRC:
+#    runs-on: ubuntu-latest
+#    container: ghcr.io/inti-cmnb/kicad7_auto
+#    needs: ERC
+#
+#    steps:
+#    - uses: actions/checkout@v4
+#
+#    - name: Run DRC
+#      run: |
+#        [ -f hardware/*.kicad_pcb ] && kiplot  -d Fabrication -s update_xml,run_drc -i
+#
+#    - name: Retrieve results
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: DRC
+#        path: Fabrication
+
+#  FabSch:
+#    name: Schematic fabrication files
+#    runs-on: ubuntu-latest
+#    container: ghcr.io/inti-cmnb/kicad7_auto
+#    needs: ERC
+#
+#    steps:
+#    - uses: actions/checkout@v4
+#
+#    - name: Run schematic stuff
+#      run: |
+#        [ -f hardware/*.kicad_sch ] && kiplot  -d Fabrication -s print_sch
+
+#    - name: Retrieve results
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: FabSch
+#        path: Fabrication
+
+#  FabPCB:
+#    name: PCB fabrication files
+#    runs-on: ubuntu-latest
+#    container: ghcr.io/inti-cmnb/kicad7_auto
+#    needs: DRC
+#
+#    steps:
+#    - uses: actions/checkout@v4
+#
+#    - name: Run PCB stuff
+#      run: |
+#        [ -f hardware/*.kicad_pcb ] && kiplot  -d Fabrication -s all print_front gerbers
+#
+#    - name: Retrieve results
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: FabPCB
+#        path: Fabrication
+
+  DocSch:
+    name: Schematic for documentation
+    runs-on: ubuntu-latest
+    container: ghcr.io/inti-cmnb/kicad7_auto
+#    needs: ERC
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Run schematic stuff
+      run: |
+        kicad-cli sch export svg hardware/BikeUSBv2.kicad_sch
+
+    - name: Retrieve results
+      uses: actions/upload-artifact@v4
+      with:
+        name: DocSch
+        path: BikeUSBv2.svg
+
+#  DocPCB:
+#    name: PCB renders for Documentation
+#    runs-on: ubuntu-latest
+#    container: ghcr.io/inti-cmnb/kicad7_auto
+#    needs: DRC
+
+#    steps:
+#    - uses: actions/checkout@v4
+
+#    - name: Run PCB stuff
+#      run: |
+#        kicad-cli pcb render --output Renders hardware/BikeUSBv2.kicad_sch
+
+#    - name: Retrieve results
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: DocRenders
+#        path: Renders
