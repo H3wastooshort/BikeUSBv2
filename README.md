@@ -2,9 +2,9 @@
 Ever wanted to charge your phone of your bikes dynamo?
 This Project does just that, for cheap (ish).
 
-![a rendered image of the PCB front](/images/pcb_top_angle.png)
-![a rendered image of the PCB back](/images/pcb_bot_angle.png)
-images as of 2024-03-16 c0e82243ed16811bd29c7a487a223f36078513f8
+![a rendered image of the PCB front](https://h3wastooshort.github.io/BikeUSBv2/top.png)
+![a rendered image of the PCB back](https://h3wastooshort.github.io/BikeUSBv2/bottom.png)
+![the schematic](https://h3wastooshort.github.io/BikeUSBv2/BikeUSBv2.svg)
 
 ## Working Principle
 The incoming AC voltage from the dynamo gets rectified by 4 shottky-diodes and buffered in a high-capacity capacitor.
