@@ -96,21 +96,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run schematic stuff
+      - name: make output folder
         run: |
-          kicad-cli sch export svg hardware/BikeUSBv2.kicad_sch
+          mkdir schematic_svg
 
-      - name: Retrieve results
+      - name: export schmatic SVG
+        run: |
+          kicad-cli sch export svg --output schematic_svg hardware/BikeUSBv2.kicad_sch
+
+      - name: Upload regular artifact
         uses: actions/upload-artifact@v4
         with:
           name: DocSch
-          path: BikeUSBv2.svg
-      - name: Upload Artifact
+          path: schematic_svg
+      - name: Upload GitHub Pages artifact
         if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v1
         with:
-          name: DocSch.svg
-          path: "BikeUSBv2.svg"
+          path: schematic_svg
 
 
   DocPCB:
@@ -125,13 +128,18 @@ jobs:
         uses: linalinn/kicad-render@main
         with:
           pcb_file: hardware/BikeUSBv2.kicad_pcb
-          output_path: ${{ github.workspace }}/images
+          output_path: ${{ github.workspace }}/pcb_renders
 
-      - name: Upload Artifact
+      - name: Upload regular artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DocPCB
+          path: pcb_renders
+      - name: Upload GitHub Pages artifact
         if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v1
         with:
-          path: "images"
+          path: pcb_renders
 
 
   deploy-pages:
