@@ -83,7 +83,7 @@ jobs:
       - name: render pcb GIF
         uses: linalinn/kicad-render@main
         with:
-          pcb_file: hardware/the_extender.kicad_pcb
+          pcb_file: hardware/BikeUSBv2.kicad_pcb
           output_path: ${{ github.workspace }}/pcb_gif
           animation: gif
 
