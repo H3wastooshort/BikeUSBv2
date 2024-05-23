@@ -4,6 +4,7 @@ This Project does just that, for cheap (ish).
 
 ![a rendered image of the PCB front](https://h3wastooshort.github.io/BikeUSBv2/top.png)
 ![a rendered image of the PCB back](https://h3wastooshort.github.io/BikeUSBv2/bottom.png)
+![a rendered animation of the PCB roatating](https://h3wastooshort.github.io/BikeUSBv2/rotating.gif)
 ![the schematic](https://h3wastooshort.github.io/BikeUSBv2/BikeUSBv2.svg)
 
 ## Working Principle
