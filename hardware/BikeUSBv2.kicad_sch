@@ -1834,7 +1834,7 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 6bc09b32-f54e-459a-a7b8-4384d10b1fcb)
   )
-  (text "This Board can be configured:\n* device power info\n  - Analog-only with R1&R2\n  - Smart with U3\n* IC supply\n  - unregulated\n  - regulated and protected by U4\n    (cut JP2, add U4)"
+  (text "This Board can be configured:\n* device power info\n  - Analog-only with R10&R11\n  - Smart with U3\n* IC supply\n  - unregulated\n  - regulated and protected by U4\n    (cut JP2, add U4)"
     (at 65.405 54.61 0)
     (effects (font (size 2 2)) (justify left bottom))
     (uuid 8dc18f73-c181-469a-bdc6-1389ee2aee8b)
@@ -2229,7 +2229,7 @@
   (symbol (lib_id "Switch:SW_Push") (at 97.79 150.495 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 21280c2a-d2dd-4698-a5e8-3dcfac08adb6)
-    (property "Reference" "SW1" (at 97.79 152.4 0)
+    (property "Reference" "SW2" (at 97.79 152.4 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "1TS002E-2500-2501-CT" (at 97.79 154.305 0)
@@ -2249,7 +2249,7 @@
     (instances
       (project "BikeUSBv2"
         (path "/b4aff538-5116-4944-9d24-c26a88d7dfe8"
-          (reference "SW1") (unit 1)
+          (reference "SW2") (unit 1)
         )
       )
     )
@@ -3430,7 +3430,7 @@
   (symbol (lib_id "Switch:SW_Push") (at 97.79 144.145 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid a71156b0-10a7-4dee-b684-6bc44bebe93b)
-    (property "Reference" "SW2" (at 97.79 137.795 0)
+    (property "Reference" "SW1" (at 97.79 137.795 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "1TS002E-2500-2501-CT" (at 97.79 139.7 0)
@@ -3450,7 +3450,7 @@
     (instances
       (project "BikeUSBv2"
         (path "/b4aff538-5116-4944-9d24-c26a88d7dfe8"
-          (reference "SW2") (unit 1)
+          (reference "SW1") (unit 1)
         )
       )
     )
