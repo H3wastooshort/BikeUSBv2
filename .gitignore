@@ -32,3 +32,4 @@ hardware/\#auto_saved_files\#
 hardware/jlcpcb/production_files
 hardware/jlcpcb/gerber
 hardware/BikeUSBv2.kicad_sch_old
+*.bkp
