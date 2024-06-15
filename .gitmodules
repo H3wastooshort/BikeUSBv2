@@ -1,0 +1,3 @@
+[submodule "firmware/lib/PD_Friend"]
+	path = firmware/lib/PD_Friend
+	url = https://github.com/H3wastooshort/PD_Friend.git
