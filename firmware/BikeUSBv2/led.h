@@ -46,6 +46,6 @@ public:
 
   void setStatic(bool s) {
     setPattern(NULL);
-    digitalWrite(led_pin, s)
+    digitalWrite(led_pin, s);
   }
-}
+};
