@@ -16,10 +16,18 @@ Programmer: SerialUPDI - 230400 baud
 #include "ac.h"
 #include "eeprom_util.h"
 
-void setup() {
+SoftWire twi(SDA_PIN, SCL_PIN);
 
+void setup() {
+  Serial.begin(38400);
+  Serial.swap(2);
+
+
+  //I2C
+  twi.begin();
+  twi.enablePullups();
+  twi.setClock(10000);
 }
 
 void loop() {
-
 }

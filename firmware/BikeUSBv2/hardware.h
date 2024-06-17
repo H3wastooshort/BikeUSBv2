@@ -5,6 +5,8 @@ const uint8_t OUTPUT_GOOD_PIN = PIN_PC3;
 
 const uint8_t AC_MEASURE_PIN = PIN_PA7; //also AINP0, don't change this or AC code must be changed aswell
 
+const uint8_t SDA_PIN = PIN_PC0;
+const uint8_t SCL_PIN = PIN_PC1;
 
 //====OTHER====
 const uint16_t MIN_INPUT_VOLTAGE = 3000; //in mV, minimum MCU supply voltage needed to allow operation of device
