@@ -3,9 +3,9 @@ struct config_t {
   byte calibrate_mode = 0x00;  //0 off, 1 2W5, 2 5W, 3 7W5
 
   //profiles
-  uint16_t min_speed_2W5 = 0;
-  uint16_t min_speed_5W = 0;
-  uint16_t min_speed_7W5 = 0;
+  uint16_t min_speed_2W5 = 0xFFFF;
+  uint16_t min_speed_5W = 0xFFFF;
+  uint16_t min_speed_7W5 = 0xFFFF;
 } config;
 
 bool loadConfig() {
