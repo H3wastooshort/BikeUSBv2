@@ -20,7 +20,7 @@ const uint8_t PWR_LED_PIN = PIN_PB3;
 
 const uint8_t CC1_PIN = PIN_PB0;
 const uint8_t CC2_PIN = PIN_PB1;
-const uint8_t DAC_PIN = PIN_PA6;
+const uint8_t CC_DAC_PIN = PIN_PA6;
 
 //====OTHER====
 

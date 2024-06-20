@@ -22,7 +22,7 @@ Programmer: SerialUPDI - 230400 baud
 
 BlinkyLED usr_led(USR_LED_PIN);
 BlinkyLED pwr_led(PWR_LED_PIN);
-SoftWire twi(SDA_PIN, SCL_PIN);
+SWI2C fusb_i2c(SDA_PIN, SCL_PIN, 0x22);
 
 #include "debug.2.h"
 #include "config_mode.h"
@@ -45,9 +45,7 @@ void setup() {
   printDebug(DBG_BOOT, 0x01);
 
   //I2C
-  twi.begin();
-  twi.enablePullups();
-  twi.setClock(10000);
+  fusb_i2c.begin();
   printDebug(DBG_BOOT, 0x02);
 
   usr_led.setStatic(false);

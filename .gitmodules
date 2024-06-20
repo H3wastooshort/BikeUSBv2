@@ -1,3 +1,6 @@
 [submodule "firmware/BikeUSBv2/lib/PD_Friend"]
 	path = firmware/BikeUSBv2/lib/PD_Friend
 	url = https://github.com/H3wastooshort/PD_Friend.git
+[submodule "firmware/BikeUSBv2/lib/SWI2C_H3"]
+	path = firmware/BikeUSBv2/lib/SWI2C_H3
+	url = https://github.com/H3wastooshort/SWI2C_H3
