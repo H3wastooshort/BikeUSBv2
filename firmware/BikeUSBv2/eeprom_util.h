@@ -1,9 +1,10 @@
 //EEPROM Integrity Check
 #include "lib/crc32.h"
+//#include <EEPROM.h>
 
 #define CRC_POS ((EEPROM.length() - 1) - sizeof(crc))
 
-bool EEPROM_checkIntegrity(size_t len = 0) {
+bool EEPROM_checkIntegrity(size_t len = 0XFFFF) {
   uint32_t table[256];
   crc32::generate_table(table);
 
