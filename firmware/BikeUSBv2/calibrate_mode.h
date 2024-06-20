@@ -30,19 +30,24 @@ void calibration_setup() {
 void calibration_loop() {  //runs when in cal mode
   static uint32_t last_no_pg = 0;
   if (!digitalRead(OUTPUT_GOOD_PIN)) last_no_pg = millis();
-  
+
   if (last_pg != 0 && millis() - last_no_pg > 5000) {
     //save freq
     usr_led.setStatic(true);
     switch (config.calibrate_mode) {
       case 0:
+        config.min_speed_2W5 = AC_frequency;
         break;
       case 1:
+        config.min_speed_5W = AC_frequency;
         break;
       case 2:
+        config.min_speed_7W5 = AC_frequency;
         break;
     }
-    config.calibrate_mode = 0;
-    if (config.calibrate_mode > 0) storeConfig();
+    if (config.calibrate_mode > 0) {
+      config.calibrate_mode = 0;
+      storeConfig();
+    }
   }
 }
