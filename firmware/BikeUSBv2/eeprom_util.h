@@ -10,7 +10,13 @@ bool EEPROM_checkIntegrity() {
   uint32_t crc;
   size_t pos = CRC_POS;
   EEPROM.get(pos, crc);
-  for (size_t i = 0; i < pos; i++) crc = crc32::update(table, crc, EEPROM.read(i));
+
+  uint32_t crc2;
+  for (size_t i = 0; i < pos; i++) crc2 = crc32::update(table, crc2, EEPROM.read(i));
+
+  bool ok = crc == crc2;
+  printDebug(DBG_EEPROM, ok);
+  return ok;
 }
 
 void EEPROM_markClean() {

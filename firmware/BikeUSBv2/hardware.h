@@ -8,6 +8,8 @@ const uint8_t AC_MEASURE_PIN = PIN_PA7; //also AINP0, don't change this or AC co
 const uint8_t SDA_PIN = PIN_PC0;
 const uint8_t SCL_PIN = PIN_PC1;
 
+#define HAS_FUSB
+
 //====OTHER====
 const uint16_t MIN_INPUT_VOLTAGE = 3000; //in mV, minimum MCU supply voltage needed to allow operation of device
 
