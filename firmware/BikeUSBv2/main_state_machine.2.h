@@ -1,16 +1,13 @@
-void msm_change_state(msm_states_s new_state) {
-  printDebug<uint8_t>(DBG_MSM_STATE, msm_state);
-  msm_state = new_state;
-  printDebug<uint8_t>(DBG_MSM_STATE, msm_state);
-}
-
 void msm_run() {
   switch (uint8_t(msm_state)) {
     case MSM_START:
       {
         //conf mode
-        if (!AC_new_meas_flag) {                                     //wait for AC measurement
-          if (millis() > 5000) msm_change_state(MSM_CONFIGURATION);  //after 5 seconds with no ac waveform, time out and decide it's DC => conf mode
+        if (!AC_new_meas_flag) {  //wait for AC measurement
+          if (millis() > 5000) {  //after 5 seconds with no ac waveform, time out and decide it's DC => conf mode
+            config_setup();
+            msm_change_state(MSM_CONFIGURATION);
+          }
           return;
         } else msm_change_state(MSM_GOT_AC);
       }
@@ -20,6 +17,7 @@ void msm_run() {
       {
         //cal mode
         if (config.calibrate_mode != 0) {
+          calibration_setup();
           msm_change_state(MSM_CALIBRATION);
           return;
         } else msm_change_state(MSM_POWERED_DOWN);
@@ -77,5 +75,8 @@ void msm_run() {
         else if (!level_7W5_possible()) msm_change_state(MSM_D_SWITCH_5W);
       }
       break;
+
+    case MSM_CONFIGURATION: config_loop(); break;
+    case MSM_CALIBRATION: calibration_loop(); break;
   }
 }

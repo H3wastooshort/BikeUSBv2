@@ -9,6 +9,7 @@ enum msm_states_s {
   //pre-charging
   MSM_POWERED_DOWN,
   MSM_WAITING_FOR_DEVICE,
+  MSM_WAITING_FOR_PD,
 
   //digital (transient)
   MSM_D_SWITCH_2W5,
@@ -31,3 +32,9 @@ enum msm_states_s {
   MSM_CONFIGURATION
 
 } msm_state = MSM_START;
+
+void msm_change_state(msm_states_s new_state) {
+  printDebug<uint8_t>(DBG_MSM_STATE, msm_state);
+  msm_state = new_state;
+  printDebug<uint8_t>(DBG_MSM_STATE, msm_state);
+}

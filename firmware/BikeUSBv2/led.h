@@ -20,6 +20,7 @@ public:
 
   void setup() {
     pinMode(led_pin, OUTPUT);
+    pinMode(led_pin, LOW);
   }
   void loop() {
     if (pattern == NULL) return;
