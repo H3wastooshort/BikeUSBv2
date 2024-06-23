@@ -9,7 +9,7 @@ protected:
   bool led_state = true;
 
 public:
-  BlinkyLED(uint8_t pin) {
+  BlinkyLED(const uint8_t pin) {
     led_pin = pin;
 
     last_led_change = 0;
@@ -39,13 +39,13 @@ public:
     }
   }
 
-  void setPattern(uint8_t* new_pattern) {
+  void setPattern(const uint8_t* new_pattern) {
     last_led_change = 0;
     pattern_index = 0;
-    pattern = new_pattern;
+    pattern = const_cast<uint8_t*>(new_pattern);
   }
 
-  void setStatic(bool s) {
+  void setStatic(const bool s) {
     setPattern(NULL);
     digitalWrite(led_pin, s);
   }
