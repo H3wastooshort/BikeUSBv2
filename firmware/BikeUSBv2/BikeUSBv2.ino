@@ -11,6 +11,7 @@ Programmer: SerialUPDI - 230400 baud
 */
 
 #include "includes.h"
+#include "lib/PD_Friend/fusb.h"
 #include "hardware.h"
 #include "debug.h"
 #include "eeprom_util.h"
