@@ -11,7 +11,8 @@ Programmer: SerialUPDI - 230400 baud
 */
 
 #include "includes.h"
-#include "lib/PD_Friend/fusb.h"
+//#define FUSB_DEBUG_SERIAL Serial
+#include "lib/PD_Friend/pd_friend.h"
 #include "hardware.h"
 #include "debug.h"
 #include "eeprom_util.h"
@@ -23,7 +24,7 @@ Programmer: SerialUPDI - 230400 baud
 
 BlinkyLED usr_led(USR_LED_PIN);
 BlinkyLED pwr_led(PWR_LED_PIN);
-SWI2C fusb_i2c(SDA_PIN, SCL_PIN, 0x22);
+SWI2C fusb_i2c(SDA_PIN, SCL_PIN, FUSB302_I2C_SLAVE_ADDR);
 FUSB302 fusb(fusb_i2c);
 
 #include "debug.2.h"
