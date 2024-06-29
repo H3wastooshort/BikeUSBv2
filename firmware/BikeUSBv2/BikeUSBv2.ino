@@ -22,19 +22,25 @@ Programmer: SerialUPDI - 230400 baud
 #include "led.h"
 #include "ac.h"
 #include "power_levels.h"
+#include "pd.h"
 
 BlinkyLED usr_led(USR_LED_PIN);
 BlinkyLED pwr_led(PWR_LED_PIN);
 SWI2C fusb_i2c(SDA_PIN, SCL_PIN, FUSB302_I2C_SLAVE_ADDR);
 PDFriendI2C fusb_i2c_compat(fusb_i2c);
 FUSB302 fusb(fusb_i2c_compat);
-PDStack_SRC pd(fusb);
+PDStack pd(fusb);
 
 #include "debug.2.h"
 #include "config_mode.h"
 #include "calibrate_mode.h"
 #include "main_state_machine.2.h"
 
+void btn1_isr() {
+}
+
+void btn2_isr() { //reset MSM
+}
 
 void setup() {
   setupHardware();
@@ -53,6 +59,12 @@ void setup() {
   //I2C
   fusb_i2c.begin();
   printDebug(DBG_BOOT, 0x02);
+
+  //PD
+  attachInterrupt(FUSB_INT_PIN, fusb_isr, FALLING)
+
+  attachInterrupt(BTN1_PIN, btn1_isr, FALLING);
+  attachInterrupt(BTN2_PIN, btn2_isr, FALLING);
 
   usr_led.setStatic(false);
 }
