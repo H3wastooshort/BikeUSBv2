@@ -15,7 +15,6 @@ enum pd_src_state_t {
   SRC_ACTIVE         //pdo has been selected
 } src_state;
 
-const uint32_t pdo_0W = 0x00000000;
 const uint32_t pdo_2W5 = 0x00000000;
 const uint32_t pdo_5W = 0x00000000;
 const uint32_t pdo_7W5 = 0x00000000;
@@ -31,9 +30,9 @@ void run_pd_src_sm() {
             uint8_t buf[4];
           };
 
-          switch (uint8_t(msm_state)) {
+          switch (msm_state) {
             default:
-              pdo = pdo_0W;
+              return;
               break;
 
             case MSM_SWITCH_2W5:
