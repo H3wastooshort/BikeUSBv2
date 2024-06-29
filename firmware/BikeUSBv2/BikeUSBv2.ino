@@ -31,18 +31,21 @@ PDFriendI2C fusb_i2c_compat(fusb_i2c);
 FUSB302 fusb(fusb_i2c_compat);
 PDStack_SRC pd(fusb);
 
+#include "pd_src.2.h"
 #include "debug.2.h"
 #include "config_mode.h"
 #include "calibrate_mode.h"
 #include "main_state_machine.2.h"
 
-void btn1_isr() {
+void btn1_isr() {  //idk
 }
 
-void btn2_isr() { //reset MSM
+void btn2_isr() {  //reset MSM
 }
 
 void setup() {
+  wdt_reset();
+
   setupHardware();
   usr_led.setup();
   usr_led.setStatic(true);
@@ -61,18 +64,28 @@ void setup() {
   printDebug(DBG_BOOT, 0x02);
 
   //PD
-  attachInterrupt(FUSB_INT_PIN, fusb_isr, FALLING)
+  pd.init_src();
+  attachInterrupt(FUSB_INT_PIN, fusb_isr, FALLING);
 
+  //buttons
   attachInterrupt(BTN1_PIN, btn1_isr, FALLING);
   attachInterrupt(BTN2_PIN, btn2_isr, FALLING);
 
+  initAC();
+
   usr_led.setStatic(false);
+
+  wdt_reset();
 }
 
 void loop() {
+  run_msm();
+  run_pd_src_sm();
 
   usr_led.loop();
   pwr_led.loop();
   doDebugOutput();
   AC_new_meas_flag = false;  //anything using this should have run by now
+
+  wdt_reset();
 }

@@ -20,10 +20,10 @@ bool level_7W5_possible() {
 }
 
 bool level_possible(chg_speed_t level) {
-  switch (uint8_t(chg_speed_t)) {
+  switch (uint8_t(level)) {
     case CHG_2W5: return level_2W5_possible();
     case CHG_5W: return level_5W_possible();
     case CHG_7W5: return level_7W5_possible();
-    default: return false;
   }
+  return false;
 }

@@ -1,4 +1,4 @@
-void msm_run() {
+void run_msm() {
   switch (uint8_t(msm_state)) {
     case MSM_START:
       {
