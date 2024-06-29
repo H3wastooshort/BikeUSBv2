@@ -29,7 +29,7 @@ BlinkyLED pwr_led(PWR_LED_PIN);
 SWI2C fusb_i2c(SDA_PIN, SCL_PIN, FUSB302_I2C_SLAVE_ADDR);
 PDFriendI2C fusb_i2c_compat(fusb_i2c);
 FUSB302 fusb(fusb_i2c_compat);
-PDStack pd(fusb);
+PDStack_SRC pd(fusb);
 
 #include "debug.2.h"
 #include "config_mode.h"
