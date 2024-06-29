@@ -21,7 +21,7 @@ const uint32_t pdo_5W = 0x00000000;
 const uint32_t pdo_7W5 = 0x00000000;
 
 void run_pd_src_sm() {
-  switch (uint8_t(src_state)) {
+  switch (src_state) {
     case SRC_ADVERTIZE:
       {
         static uint32_t last_adv = 0;
@@ -36,18 +36,18 @@ void run_pd_src_sm() {
               pdo = pdo_0W;
               break;
 
-            case MSM_D_SWITCH_2W5:
-            case MSM_D_2W5:
+            case MSM_SWITCH_2W5:
+            case MSM_2W5:
               pdo = pdo_2W5;
               break;
 
-            case MSM_D_SWITCH_5W:
-            case MSM_D_5W:
+            case MSM_SWITCH_5W:
+            case MSM_5W:
               pdo = pdo_5W;
               break;
 
-            case MSM_D_SWITCH_7W5:
-            case MSM_D_7W5:
+            case MSM_SWITCH_7W5:
+            case MSM_7W5:
               pdo = pdo_7W5;
               break;
           }  //

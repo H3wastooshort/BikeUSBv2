@@ -8,24 +8,15 @@ enum msm_states_s {
   MSM_DO_POWER_UP,
   //pre-charging
   MSM_POWERED_DOWN,
-  MSM_WAITING_FOR_DEVICE,
-  MSM_WAITING_FOR_PD,
 
   //digital (transient)
-  MSM_D_SWITCH_2W5,
-  MSM_D_SWITCH_5W,
-  MSM_D_SWITCH_7W5,
+  MSM_SWITCH_2W5,
+  MSM_SWITCH_5W,
+  MSM_SWITCH_7W5,
   //digital
-  MSM_D_2W5,
-  MSM_D_5W,
-  MSM_D_7W5,
-
-  //analog (transient)
-  MSM_A_SWITCH_2W5,
-  MSM_A_SWITCH_7W5,
-  //analog
-  MSM_A_2W5,
-  MSM_A_7W5,
+  MSM_2W5,
+  MSM_5W,
+  MSM_7W5,
 
   //misc
   MSM_CALIBRATION,
