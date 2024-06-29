@@ -22,7 +22,6 @@ Programmer: SerialUPDI - 230400 baud
 #include "led.h"
 #include "ac.h"
 #include "power_levels.h"
-#include "pd.h"
 
 BlinkyLED usr_led(USR_LED_PIN);
 BlinkyLED pwr_led(PWR_LED_PIN);

@@ -26,14 +26,15 @@ void run_msm() {
     //pre-charging (transient)
     case MSM_DO_POWER_DOWN:
       digitalWrite(OUTPUT_ENABLE_PIN, LOW);
-      pd.detach_src();
+      pd.detach();
+      src_state = SRC_OFF;
       msm_change_state(MSM_POWERED_DOWN);
       break;
 
     case MSM_DO_POWER_UP:
       digitalWrite(OUTPUT_ENABLE_PIN, HIGH);
       if (digitalRead(OUTPUT_GOOD_PIN)) {
-        pd.attach_src();
+        src_state = SRC_DETACHED;
         if (level_7W5_possible()) msm_change_state(MSM_SWITCH_7W5);
         else if (level_5W_possible()) msm_change_state(MSM_SWITCH_5W);
         else if (level_2W5_possible()) msm_change_state(MSM_SWITCH_2W5);
