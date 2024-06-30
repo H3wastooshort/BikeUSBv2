@@ -64,7 +64,6 @@ void setup() {
 
   //PD
   pd.init_src();
-  attachInterrupt(FUSB_INT_PIN, fusb_isr, FALLING);
 
   //buttons
   attachInterrupt(BTN1_PIN, btn1_isr, FALLING);
@@ -79,7 +78,7 @@ void setup() {
 
 void loop() {
   run_msm();
-  run_pd_src_sm();
+  run_pd();
 
   usr_led.loop();
   pwr_led.loop();

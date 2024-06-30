@@ -33,11 +33,13 @@ void setupHardware() {
   pinMode(OUTPUT_ENABLE_PIN, OUTPUT);
   digitalWrite(OUTPUT_ENABLE_PIN, LOW);
   pinMode(USR_LED_PIN, OUTPUT);
-  
+
   pinMode(AC_MEASURE_PIN, INPUT);
   pinMode(OUTPUT_GOOD_PIN, INPUT_PULLUP);
   pinMode(BTN1_PIN, INPUT_PULLUP);
   pinMode(BTN2_PIN, INPUT_PULLUP);
+
+  pinMode(FUSB_INT_PIN, INPUT_PULLUP);
 
   //ADC0 / CC Pin DAC
   analogReadResolution(10);

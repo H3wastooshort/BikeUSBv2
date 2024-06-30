@@ -17,9 +17,9 @@ enum pd_src_state_t {
   SRC_ACTIVE         //pdo has been selected
 } src_state;
 
-const uint32_t pdo_2W5 = 0x00000000;
-const uint32_t pdo_5W = 0x00000000;
-const uint32_t pdo_7W5 = 0x00000000;
+const uint32_t pdo_2W5 = PDStack_SRC::make_fixed_pdo(5000, 500);
+const uint32_t pdo_5W = PDStack_SRC::make_fixed_pdo(5000, 1000);
+const uint32_t pdo_7W5 = PDStack_SRC::make_fixed_pdo(5000, 1500);
 
 void run_pd_src_sm() {
   switch (src_state) {
@@ -31,7 +31,7 @@ void run_pd_src_sm() {
         src_state = SRC_ADVERTIZE;
       }
       break;
-      
+
     case SRC_ADVERTIZE:
       {
         static uint32_t last_adv = 0;
@@ -68,7 +68,6 @@ void run_pd_src_sm() {
       break;
 
     case SRC_WAIT:
-      //TODO: detect GoodCRC
       break;
 
     case SRC_STARTING_PSU:
@@ -85,9 +84,29 @@ void run_pd_src_sm() {
   }
 }
 
-void fusb_isr() {
+void fusb_int() {
   uint32_t interrupts = fusb.get_interrupts();
   if (0) {  //if device deatched
     src_state = SRC_ADVERTIZE;
   }
+  if (0) {  //on attach
+    if (src_state == SRC_DETACHED) src_state = SRC_ADVERTIZE;
+  }
+}
+
+void on_message(uint8_t* msg, size_t len) {
+  if (PDStack::is_data_msg(msg, len)) switch (PDStack::get_data_msg_type(msg, len)) {
+      default: pd.do_other_msg_resp(msg, len); break;
+    }
+
+  else switch (PDStack::get_ctrl_msg_type(msg, len)) {
+      case PDM_GoodCRC:
+        if (src_state == SRC_WAIT) src_state = SRC_STARTING_PSU;
+        break;
+      default: pd.do_other_msg_resp(msg, len); break;
+    }
+}
+
+void run_pd() {
+  if (!digitalRead(FUSB_INT_PIN)) fusb_int();
 }
