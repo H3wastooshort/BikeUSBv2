@@ -85,12 +85,10 @@ void run_pd_src_sm() {
 }
 
 void fusb_int() {
-  uint32_t interrupts = fusb.get_interrupts();
-  if (0) {  //if device deatched
-    src_state = SRC_ADVERTIZE;
-  }
-  if (0) {  //on attach
+  uint32_t i = fusb.get_interrupts();
+  if (i & FUSB_I_COMP_CHNG) {  //on at/detach
     if (src_state == SRC_DETACHED) src_state = SRC_ADVERTIZE;
+    else src_state == SRC_DETACHED;  //TODO this is very bad! check with find_cc() if device is really gone
   }
 }
 
