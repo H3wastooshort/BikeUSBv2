@@ -17,10 +17,6 @@ enum pd_src_state_t {
   SRC_ACTIVE         //pdo has been selected
 } src_state;
 
-const uint32_t pdo_2W5 = PDStack_SRC::make_fixed_pdo(5000, 500);
-const uint32_t pdo_5W = PDStack_SRC::make_fixed_pdo(5000, 1000);
-const uint32_t pdo_7W5 = PDStack_SRC::make_fixed_pdo(5000, 1500);
-
 void run_pd_src_sm() {
   switch (src_state) {
     case SRC_OFF:  // do nothing
@@ -48,20 +44,20 @@ void run_pd_src_sm() {
 
             case MSM_SWITCH_2W5:
             case MSM_2W5:
-              pdo = pdo_2W5;
+              pdo = PDStack_SRC::make_fixed_pdo(5000, 500);
               break;
 
             case MSM_SWITCH_5W:
             case MSM_5W:
-              pdo = pdo_5W;
+              pdo = PDStack_SRC::make_fixed_pdo(5000, 1000);
               break;
 
             case MSM_SWITCH_7W5:
             case MSM_7W5:
-              pdo = pdo_7W5;
+              pdo = PDStack_SRC::make_fixed_pdo(5000, 1500);
               break;
           }  //
-
+          printDebug(DBG_PDO, pdo);
           pd.send_data_msg(PDM_Source_Capabilities, buf, sizeof(buf));
         }
       }
@@ -88,7 +84,7 @@ void fusb_int() {
   uint32_t i = fusb.get_interrupts();
   if (i & FUSB_I_COMP_CHNG) {  //on at/detach
     if (src_state == SRC_DETACHED) src_state = SRC_ADVERTIZE;
-    else src_state == SRC_DETACHED;  //TODO this is very bad! check with find_cc() if device is really gone
+    else src_state = SRC_DETACHED;  //TODO this is very bad! check with find_cc() if device is really gone
   }
 }
 
@@ -107,4 +103,5 @@ void on_message(uint8_t* msg, size_t len) {
 
 void run_pd() {
   if (!digitalRead(FUSB_INT_PIN)) fusb_int();
+  run_pd_src_sm();
 }
