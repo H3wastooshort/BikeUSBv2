@@ -16,6 +16,7 @@ Programmer: SerialUPDI - 230400 baud
 #include "lib/PD_Friend/i2c/swi2c.h"
 #include "lib/PD_Friend/pd_friend.h"
 #include "debug.h"
+#include "power.h"
 #include "eeprom_util.h"
 #include "config.h"
 #include "main_state_machine.h"
@@ -39,7 +40,9 @@ PDStack_SRC pd(fusb);
 void btn1_isr() {  //idk
 }
 
-void btn2_isr() {  //reset MSM
+void btn2_isr() {  //reset everything
+  wdt_enable(WDTO_15MS);
+  while (1) {} //do nothing, wait for watchdog
 }
 
 void setup() {

@@ -41,7 +41,7 @@ enum pd_src_state_t {
   SRC_OFF,           //do nothing
   SRC_DETACHED,      //waiting for device sink attach
   SRC_ADVERTIZE,     //advertizing capabilites to device
-  SRC_WAIT,          //got a GoodCRC packet, stop advertising
+  SRC_WAIT,          //got a GoodCRC packet, stop advertising, wait for accept/reject
   SRC_STARTING_PSU,  //waiting to send PS_RDY
   SRC_ACTIVE         //pdo has been selected
 } src_state = SRC_OFF;
@@ -55,33 +55,40 @@ void src_change_state(pd_src_state_t new_state) {
 }
 
 void run_pd_src_sm() {
+  static uint32_t last_adv = 0;
   switch (src_state) {
     case SRC_OFF:
       if (src_state_changed) {
         pd.detach();
-        digitalWrite(OUTPUT_ENABLE_PIN, LOW);
+        setPowerOutput(false);
       }
       break;
 
     case SRC_DETACHED:
       if (pd.attach_src()) {
-        digitalWrite(OUTPUT_ENABLE_PIN, HIGH);  //if pulldowns detected, turn on boost converter
+        setPowerOutput(true);  //if pulldowns detected, turn on boost converter
         src_change_state(SRC_ADVERTIZE);
       }
       break;
 
     case SRC_ADVERTIZE:
-      {
-        static uint32_t last_adv = 0;
-        if (millis() - last_adv > 100) send_source_cap();
+      if (millis() - last_adv > 100) {
+        last_adv = millis();
+        send_source_cap();
       }
       break;
 
-    case SRC_WAIT:
+    case SRC_WAIT:                       //wait for accept/reject
+      if (millis() - last_adv > 5000) {  //something went wrong
+        printDebug(DBG_PD_ERR, 0x00);
+        pd.reset();
+        src_change_state(SRC_DETACHED);
+      }
       break;
 
     case SRC_STARTING_PSU:
-      if (!digitalRead(OUTPUT_GOOD_PIN)) {
+      if (src_state_changed) setPowerOutput(true);  //just in case it wasnt on earlier
+      if (isPowerGood()) {
         //more stuff here
         pd.send_ctrl_msg(PDM_PS_RDY);
         src_change_state(SRC_ACTIVE);
@@ -99,6 +106,7 @@ void on_message(uint8_t* msg, size_t len) {
   if (PDStack::is_data_msg(msg, len)) switch (PDStack::get_data_msg_type(msg, len)) {
       case PDM_Request:
         pd.send_ctrl_msg(PDM_Accept);  //not checking lol (at least for now)
+        src_change_state(SRC_STARTING_PSU);
         break;
       default: pd.do_other_msg_resp(msg, len); break;
     }
@@ -106,7 +114,7 @@ void on_message(uint8_t* msg, size_t len) {
   else switch (PDStack::get_ctrl_msg_type(msg, len)) {
       case PDM_Get_Source_Cap: send_source_cap(); break;
       case PDM_GoodCRC:
-        if (src_state == SRC_WAIT) src_change_state(SRC_STARTING_PSU);
+        if (src_state == SRC_ADVERTIZE) src_change_state(SRC_WAIT);
         break;
       default: pd.do_other_msg_resp(msg, len); break;
     }
@@ -114,9 +122,9 @@ void on_message(uint8_t* msg, size_t len) {
 
 void fusb_int() {
   uint32_t interrupts = fusb.get_interrupts();
+  printDebug(DBG_FUSB_INT, interrupts);
   if (interrupts & FUSB_I_COMP_CHNG) {  //on at/detach
-    if (src_state == SRC_DETACHED) src_change_state(SRC_ADVERTIZE);
-    else src_change_state(SRC_DETACHED);  //TODO this is very bad! check with find_cc() if device is really gone
+    if (fusb.find_cc_source() == 0) src_change_state(SRC_DETACHED);
   }
 
   if (interrupts & FUSB_I_ACTIVITY)

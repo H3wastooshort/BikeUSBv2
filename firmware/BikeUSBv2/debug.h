@@ -11,7 +11,11 @@ enum debug_code_t {
   DBG_FREQ = 64,
 
   //PD
-  DBG_PDO = 128
+  DBG_PDO = 128,
+  DBG_PD_ERR,
+
+  //FUSB
+  DBG_FUSB_INT = 192
 };
 
 

@@ -32,7 +32,7 @@ void calibration_setup() {
 
 void calibration_loop() {  //runs when in cal mode
   static uint32_t last_no_pg = 0;
-  if (!digitalRead(OUTPUT_GOOD_PIN)) last_no_pg = millis();
+  if (!isPowerGood()) last_no_pg = millis();
 
   if ((config.calibrate_mode > 0) && (last_no_pg != 0) && (millis() - last_no_pg > 5000)) {
     //save freq

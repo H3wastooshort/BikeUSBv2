@@ -25,7 +25,7 @@ void run_msm() {
 
     //pre-charging (transient)
     case MSM_DO_POWER_DOWN:
-      digitalWrite(OUTPUT_ENABLE_PIN, LOW);
+      setPowerOutput(false);
       pd.detach();
       src_change_state(SRC_OFF);
       msm_change_state(MSM_POWERED_DOWN);

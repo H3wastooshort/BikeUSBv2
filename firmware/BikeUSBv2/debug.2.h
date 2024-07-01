@@ -1,6 +1,6 @@
 template<typename T> void printDebug(debug_code_t code, T val) {
   Serial.println();
-  Serial.printHex(code);
+  Serial.printHex((uint8_t)code);
   Serial.print(" => ");
   Serial.printHex(val);
   Serial.println();
