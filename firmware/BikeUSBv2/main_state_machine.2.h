@@ -27,18 +27,15 @@ void run_msm() {
     case MSM_DO_POWER_DOWN:
       digitalWrite(OUTPUT_ENABLE_PIN, LOW);
       pd.detach();
-      src_state = SRC_OFF;
+      src_change_state(SRC_OFF);
       msm_change_state(MSM_POWERED_DOWN);
       break;
 
     case MSM_DO_POWER_UP:
-      digitalWrite(OUTPUT_ENABLE_PIN, HIGH);
-      if (digitalRead(OUTPUT_GOOD_PIN)) {
-        src_state = SRC_DETACHED;
-        if (level_7W5_possible()) msm_change_state(MSM_SWITCH_7W5);
-        else if (level_5W_possible()) msm_change_state(MSM_SWITCH_5W);
-        else if (level_2W5_possible()) msm_change_state(MSM_SWITCH_2W5);
-      }
+      if (level_7W5_possible()) msm_change_state(MSM_SWITCH_7W5);
+      else if (level_5W_possible()) msm_change_state(MSM_SWITCH_5W);
+      else if (level_2W5_possible()) msm_change_state(MSM_SWITCH_2W5);
+      src_change_state(SRC_DETACHED);
       break;
 
     //pre-charging
@@ -49,15 +46,15 @@ void run_msm() {
 
     //digital (transient)
     case MSM_SWITCH_2W5:
-      src_state = SRC_ADVERTIZE;
+      src_change_state(SRC_ADVERTIZE);
       msm_change_state(MSM_2W5);
       break;
     case MSM_SWITCH_5W:
-      src_state = SRC_ADVERTIZE;
+      src_change_state(SRC_ADVERTIZE);
       msm_change_state(MSM_5W);
       break;
     case MSM_SWITCH_7W5:
-      src_state = SRC_ADVERTIZE;
+      src_change_state(SRC_ADVERTIZE);
       msm_change_state(MSM_7W5);
       break;
 

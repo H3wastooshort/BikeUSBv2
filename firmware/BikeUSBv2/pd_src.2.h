@@ -44,16 +44,29 @@ enum pd_src_state_t {
   SRC_WAIT,          //got a GoodCRC packet, stop advertising
   SRC_STARTING_PSU,  //waiting to send PS_RDY
   SRC_ACTIVE         //pdo has been selected
-} src_state;
+} src_state = SRC_OFF;
+
+bool src_state_changed = false;
+void src_change_state(pd_src_state_t new_state) {
+  //printDebug<uint8_t>(DBG_MSM_STATE, src_state);
+  src_state = new_state;
+  src_state_changed = true;
+  printDebug<uint8_t>(DBG_MSM_STATE, src_state);
+}
 
 void run_pd_src_sm() {
   switch (src_state) {
-    case SRC_OFF:  // do nothing
+    case SRC_OFF:
+      if (src_state_changed) {
+        pd.detach();
+        digitalWrite(OUTPUT_ENABLE_PIN, LOW);
+      }
       break;
 
     case SRC_DETACHED:
       if (pd.attach_src()) {
-        src_state = SRC_ADVERTIZE;
+        digitalWrite(OUTPUT_ENABLE_PIN, HIGH);  //if pulldowns detected, turn on boost converter
+        src_change_state(SRC_ADVERTIZE);
       }
       break;
 
@@ -70,8 +83,8 @@ void run_pd_src_sm() {
     case SRC_STARTING_PSU:
       if (!digitalRead(OUTPUT_GOOD_PIN)) {
         //more stuff here
-        src_state = SRC_ACTIVE;
-        return;
+        pd.send_ctrl_msg(PDM_PS_RDY);
+        src_change_state(SRC_ACTIVE);
       }
       break;
 
@@ -79,6 +92,7 @@ void run_pd_src_sm() {
       //TODO: check for disconnect
       break;
   }
+  src_state_changed = false;
 }
 
 void on_message(uint8_t* msg, size_t len) {
@@ -92,7 +106,7 @@ void on_message(uint8_t* msg, size_t len) {
   else switch (PDStack::get_ctrl_msg_type(msg, len)) {
       case PDM_Get_Source_Cap: send_source_cap(); break;
       case PDM_GoodCRC:
-        if (src_state == SRC_WAIT) src_state = SRC_STARTING_PSU;
+        if (src_state == SRC_WAIT) src_change_state(SRC_STARTING_PSU);
         break;
       default: pd.do_other_msg_resp(msg, len); break;
     }
@@ -101,12 +115,12 @@ void on_message(uint8_t* msg, size_t len) {
 void fusb_int() {
   uint32_t interrupts = fusb.get_interrupts();
   if (interrupts & FUSB_I_COMP_CHNG) {  //on at/detach
-    if (src_state == SRC_DETACHED) src_state = SRC_ADVERTIZE;
-    else src_state = SRC_DETACHED;  //TODO this is very bad! check with find_cc() if device is really gone
+    if (src_state == SRC_DETACHED) src_change_state(SRC_ADVERTIZE);
+    else src_change_state(SRC_DETACHED);  //TODO this is very bad! check with find_cc() if device is really gone
   }
 
   if (interrupts & FUSB_I_ACTIVITY)
-    if (fusb.rxb_state() == 0) { //TODO: this does not seem right
+    if (fusb.rxb_state() == 0) {  //TODO: this does not seem right
       uint8_t buf[256];
       pd.read_msg(buf, sizeof(buf));
       on_message(buf, sizeof(buf));
