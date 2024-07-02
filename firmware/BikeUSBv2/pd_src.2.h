@@ -54,6 +54,16 @@ void src_change_state(pd_src_state_t new_state) {
   printDebug<uint8_t>(DBG_MSM_STATE, src_state);
 }
 
+bool src_check_power() {
+  if (!isPowerGood()) {
+    pd.reset();
+    pd.detach();
+    src_change_state(SRC_DETACHED);
+    return false;
+  }
+  return true;
+}
+
 void run_pd_src_sm() {
   static uint32_t last_adv = 0;
   switch (src_state) {
@@ -65,10 +75,11 @@ void run_pd_src_sm() {
       break;
 
     case SRC_DETACHED:
-      if (pd.attach_src()) {
-        setPowerOutput(true);  //if pulldowns detected, turn on boost converter
-        src_change_state(SRC_ADVERTIZE);
-      }
+      if (isPowerGood())  //do nothing if power is bad
+        if (pd.attach_src()) {
+          setPowerOutput(true);  //if pulldowns detected, turn on boost converter
+          src_change_state(SRC_ADVERTIZE);
+        }
       break;
 
     case SRC_ADVERTIZE:
@@ -76,6 +87,7 @@ void run_pd_src_sm() {
         last_adv = millis();
         send_source_cap();
       }
+      src_check_power();
       break;
 
     case SRC_WAIT:                       //wait for accept/reject
@@ -84,6 +96,7 @@ void run_pd_src_sm() {
         pd.reset();
         src_change_state(SRC_DETACHED);
       }
+      src_check_power();
       break;
 
     case SRC_STARTING_PSU:
@@ -96,6 +109,7 @@ void run_pd_src_sm() {
       break;
 
     case SRC_ACTIVE:
+      src_check_power();
       //TODO: check for disconnect
       break;
   }
