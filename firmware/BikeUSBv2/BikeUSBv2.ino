@@ -37,13 +37,15 @@ PDStack_SRC pd(fusb);
 #include "calibrate_mode.h"
 #include "main_state_machine.2.h"
 
-void btn1_isr() {  //idk
-}
-
-void btn2_isr() {  //reset everything
+void btn1_isr() {  //reset everything
   wdt_enable(WDTO_15MS);
   while (1) {} //do nothing, wait for watchdog
 }
+
+void btn2_isr() {
+  msm_change_state(MSM_SWITCH_DUMB_MODE);
+}
+
 
 void setup() {
   wdt_reset();

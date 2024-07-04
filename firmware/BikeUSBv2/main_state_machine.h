@@ -18,6 +18,9 @@ enum msm_states_s {
   MSM_5W,
   MSM_7W5,
 
+  MSM_SWITCH_DUMB_MODE,
+  MSM_DUMB_MODE,
+
   //misc
   MSM_CALIBRATION,
   MSM_CONFIGURATION

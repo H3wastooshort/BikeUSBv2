@@ -76,6 +76,19 @@ void run_msm() {
       else if (!level_7W5_possible()) msm_change_state(MSM_SWITCH_5W);
       break;
 
+    case MSM_SWITCH_DUMB_MODE:
+      src_change_state(SRC_OFF);
+      pd.reset();
+      pd.init_src();
+      fusb.enable_pullups();
+      setPowerOutput(true);
+      pwr_led.setStatic(false);
+      usr_led.setStatic(true);
+      msm_change_state(MSM_DUMB_MODE);
+      break;
+    case MSM_DUMB_MODE:
+      //can only be exited by reset
+      break;
 
     case MSM_CONFIGURATION: config_loop(); break;
     case MSM_CALIBRATION: calibration_loop(); break;
