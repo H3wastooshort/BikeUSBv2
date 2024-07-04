@@ -30,7 +30,7 @@ void send_source_cap() {
       break;
   }  //
   printDebug(DBG_PDO, pdo);
-  pd.send_data_msg(PDM_Source_Capabilities, pdo, 1);
+  pd.send_data_msg(PDDM_Source_Capabilities, &pdo, 1);
 }
 
 enum pd_src_state_t {
@@ -99,7 +99,7 @@ void run_pd_src_sm() {
       if (src_state_changed) setPowerOutput(true);  //just in case it wasnt on earlier
       if (isPowerGood()) {
         //more stuff here
-        pd.send_ctrl_msg(PDM_PS_RDY);
+        pd.send_ctrl_msg(PDCM_PS_RDY);
         src_change_state(SRC_ACTIVE);
       }
       break;
@@ -114,16 +114,16 @@ void run_pd_src_sm() {
 
 void on_message(uint8_t* msg, size_t len) {
   if (PDStack::is_data_msg(msg, len)) switch (PDStack::get_data_msg_type(msg, len)) {
-      case PDM_Request:
-        pd.send_ctrl_msg(PDM_Accept);  //not checking lol (at least for now)
+      case PDDM_Request:
+        pd.send_ctrl_msg(PDCM_Accept);  //not checking lol (at least for now)
         src_change_state(SRC_STARTING_PSU);
         break;
       default: pd.do_other_msg_resp(msg, len); break;
     }
 
   else switch (PDStack::get_ctrl_msg_type(msg, len)) {
-      case PDM_Get_Source_Cap: send_source_cap(); break;
-      case PDM_GoodCRC:
+      case PDCM_Get_Source_Cap: send_source_cap(); break;
+      case PDCM_GoodCRC:
         if (src_state == SRC_ADVERTIZE) src_change_state(SRC_WAIT);
         break;
       default: pd.do_other_msg_resp(msg, len); break;

@@ -12,7 +12,7 @@ Programmer: SerialUPDI - 230400 baud
 
 #include "includes.h"
 #include "hardware.h"
-//#define FUSB_DEBUG_SERIAL Serial
+#define FUSB_DEBUG_SERIAL Serial
 #include "lib/PD_Friend/i2c/swi2c.h"
 #include "lib/PD_Friend/pd_friend.h"
 #include "debug.h"
@@ -48,6 +48,7 @@ void btn2_isr() {
 
 
 void setup() {
+  wdt_enable(WDTO_2S);
   wdt_reset();
 
   setupHardware();
