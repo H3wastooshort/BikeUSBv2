@@ -8,11 +8,7 @@ void do_pd_msg_resp(uint8_t* msg, size_t len) {
   }
 }
 void send_source_cap() {
-  union {
-    uint32_t pdo;
-    uint8_t buf[4];
-  };
-
+  uint32_t pdo = 0;
   switch (msm_state) {
     default:
       return;
@@ -34,7 +30,7 @@ void send_source_cap() {
       break;
   }  //
   printDebug(DBG_PDO, pdo);
-  pd.send_data_msg(PDM_Source_Capabilities, buf, sizeof(buf));
+  pd.send_data_msg(PDM_Source_Capabilities, pdo, 1);
 }
 
 enum pd_src_state_t {
