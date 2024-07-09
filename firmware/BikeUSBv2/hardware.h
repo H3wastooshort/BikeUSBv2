@@ -15,8 +15,8 @@ const uint8_t FUSB_INT_PIN = PIN_PA4;
 const uint8_t BTN1_PIN = PIN_PB3;
 const uint8_t BTN2_PIN = PIN_PB4;
 
-const uint8_t USR_LED_PIN = PIN_PB2;
-const uint8_t PWR_LED_PIN = PIN_PB3;
+const uint8_t USR_LED_PIN = PIN_PB5;
+const uint8_t PWR_LED_PIN = PIN_PB2;
 
 const uint8_t CC1_PIN = PIN_PB0;
 const uint8_t CC2_PIN = PIN_PB1;
