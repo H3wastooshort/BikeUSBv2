@@ -3,7 +3,7 @@ if (len(sys.argv) != 3):
     print("debug_decoder.py <port> <baudrate>")
     quit(1)
 port = sys.argv[1]
-baud = sys.argv[2]
+baud = int(sys.argv[2])
 
 abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
@@ -36,7 +36,7 @@ def parse_enum(text):
         for entry in item.names:
             if entry.value != "":
                 idx = int(entry.value)
-            print(f"{item.enum.upper()}_{entry.name.upper()} = {idx}")
+            #print(f"{item.enum.upper()}_{entry.name.upper()} = {idx}")
             entries[idx] = entry.name.upper()
             idx += 1
         enums[item.enum.upper()] = entries
@@ -52,15 +52,14 @@ print("Reading C++ files")
 with open('BikeUSBv2/debug.h','r') as dbg_f:
     text = dbg_f.read()
     enums = parse_enum(text)
-    print(enums)
     dbg_codes = enums["DEBUG_CODE_T"]
 
 def lookup_dbg_code(code):
     idx = int(code,16)
-    if dbg_codes[idx] is None:
-        return code
-    else:
+    try:
         return dbg_codes[idx]
+    except KeyError:
+        return code
 
 
 fusb_registers = {}
@@ -69,35 +68,36 @@ fusb_registers = {}
 
 def lookup_fusb_reg(reg):
     idx = int(reg,16)
-    if fusb_registers[idx] is None:
-        return reg
-    else:
+    try:
         return fusb_registers[idx]
+    except KeyError:
+        return reg
 
 ##################
 # serial parsing #
 ##################
 
-print("Opening %s at %dbaud" % (port,baud))
-ser = serial.Serial(port,baud)
-
-dbg_re = re.compile('^([0-9A-F]{2}) -> ([0-9A-F]*?)\n$', re.IGNORECASE) #0 = code, 1 = value
-i2c_re = re.compile('^r([0-9A-F]{2})([RW])(([0-9A-F]{2}))\n$', re.IGNORECASE) # 0 = register, 1 = R/W, 2 = value
+dbg_re = re.compile('^([0-9A-F]{2}) -> ([0-9A-F]*)', re.IGNORECASE) #0 = code, 1 = value
+i2c_re = re.compile('^r([0-9A-F]{2})([RW])([0-9A-F]{2})', re.IGNORECASE) # 0 = register, 1 = R/W, 2 = value
 
 rw_dir_sym = {'R': ' -> ', 'W': ' <= '}
 
 def parse_line(line):
-    if len(line) >= 6: # len("XX -> ") == 6
+    if len(line) >= 6: # len("XX -> ") == 6 == len("rXXxXX")
         dbg_match = dbg_re.match(line)
         if dbg_match is not None:
             g = dbg_match.groups()
             return "DBG %s -> %s" % (lookup_dbg_code(g[0]), g[1])
         
         i2c_match = i2c_re.match(line)
-        if dbg_match is not None:
+        if i2c_match is not None:
             g = i2c_match.groups()
-            return "I2C %s %s %s" % (lookup_fusb_reg(g[0]), rw_dir_sym[upper(g[1])], g[2])
-    return line
+            return "I2C %s %s %s" % (lookup_fusb_reg(g[0]), rw_dir_sym[g[1].upper()], g[2])
+    return "UNK " + line
+
+print("Opening %s at %d baud" % (port,baud))
+ser = serial.Serial(port,baud)
+ser.timeout = 3
 
 while True:
     line = ser.read_until()
