@@ -62,7 +62,7 @@ def lookup_dbg_code(code):
         return code
 
 
-fusb_registers = {}
+fusb_registers = {0: 'FUSB_DEVICE_ID', 1: 'FUSB_SWITCHES0', 2: 'FUSB_SWITCHES1', 3: 'FUSB_MEASURE', 4: 'FUSB_CONTROL0', 5: 'FUSB_CONTROL1', 6: 'FUSB_CONTROL2', 7: 'FUSB_CONTROL3', 8: 'FUSB_MASK', 9: 'FUSB_POWER', 10: 'FUSB_RESET', 11: 'FUSB_MASKA', 12: 'FUSB_MASKB', 13: 'FUSB_STATUS0A', 14: 'FUSB_STATUS1A', 15: 'FUSB_INTERRUPTA', 16: 'FUSB_INTERRUPTB', 17: 'FUSB_STATUS0', 18: 'FUSB_STATUS1', 19: 'FUSB_INTERRUPT', 20: 'FUSB_FIFOS'}
 #with open('/BikeUSBv2/lib/PDFriend/fusb.h','r') as reg_f:
 #
 
@@ -92,7 +92,7 @@ def parse_line(line):
         i2c_match = i2c_re.match(line)
         if i2c_match is not None:
             g = i2c_match.groups()
-            return "I2C %s %s %s" % (lookup_fusb_reg(g[0]), rw_dir_sym[g[1].upper()], g[2])
+            return "I2C {} {} {:08b}".format(lookup_fusb_reg(g[0]), rw_dir_sym[g[1].upper()], int(g[2],16))
     return "UNK " + line
 
 print("Opening %s at %d baud" % (port,baud))
