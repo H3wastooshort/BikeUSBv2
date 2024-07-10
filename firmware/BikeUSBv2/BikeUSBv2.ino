@@ -56,8 +56,8 @@ void setup() {
   usr_led.setStatic(true);
   pwr_led.setup();
 
+  Serial.pins(PIN_PA1, PIN_PA2);
   Serial.begin(38400);
-  Serial.swap(2);
   printDebug(DBG_BOOT, 0x00);
 
   //load conf
