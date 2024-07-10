@@ -1,6 +1,7 @@
 enum debug_code_t {
   DBG_BOOT = 0,
   DBG_EEPROM = 1,
+  DBG_RESET,
 
   DBG_CONFIG = 31,
   DBG_CALIBRATE = 32,

@@ -7,7 +7,7 @@ Clock = 4Mhz Internal
 millis()/micros() = Enabled (default timer) or maybe RTC (no micros). not sure yet
 printf() = Minimal
 Startup Time = 64ms
-Programmer: SerialUPDI - 230400 baud
+Programmer: SerialUPDI - SLOW
 */
 
 #include "includes.h"
@@ -39,7 +39,7 @@ PDStack_SRC pd(fusb);
 
 void btn1_isr() {  //reset everything
   wdt_enable(WDTO_15MS);
-  while (1) {} //do nothing, wait for watchdog
+  while (1) {}  //do nothing, wait for watchdog
 }
 
 void btn2_isr() {
@@ -58,6 +58,7 @@ void setup() {
 
   Serial.pins(PIN_PA1, PIN_PA2);
   Serial.begin(38400);
+  printDebug(DBG_RESET, GPIOR0);
   printDebug(DBG_BOOT, 0x00);
 
   //load conf
@@ -70,14 +71,19 @@ void setup() {
 
   //PD
   pd.init_src();
-
-  //buttons
-  attachInterrupt(BTN1_PIN, btn1_isr, FALLING);
-  attachInterrupt(BTN2_PIN, btn2_isr, FALLING);
+  printDebug(DBG_BOOT, 0x03);
 
   initAC();
+  printDebug(DBG_BOOT, 0x04);
+
+  //buttons
+  //attachInterrupt(BTN1_PIN, btn1_isr, FALLING);
+  //attachInterrupt(BTN2_PIN, btn2_isr, FALLING);
 
   usr_led.setStatic(false);
+
+
+  printDebug(DBG_BOOT, 0x05);
 
   wdt_reset();
 }
