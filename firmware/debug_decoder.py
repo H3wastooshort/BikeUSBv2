@@ -128,4 +128,4 @@ while True:
         try:
             print(parse_line(line.decode('ascii')))
         except:
-            print("Decode ERROR")
+            print("Decode ERROR! The MCU should only send ASCII, check wiring.")
