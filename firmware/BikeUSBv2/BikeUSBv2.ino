@@ -36,6 +36,7 @@ PDStack_SRC pd(fusb);
 #include "config_mode.h"
 #include "calibrate_mode.h"
 #include "main_state_machine.2.h"
+#include "buttons.h"
 
 void setup() {
   _PROTECTED_WRITE(WDT.CTRLA, WDT_PERIOD_8KCLK_gc);
