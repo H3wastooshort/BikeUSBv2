@@ -111,12 +111,12 @@ def parse_line(line):
         dbg_match = dbg_re.match(line)
         if dbg_match is not None:
             g = dbg_match.groups()
-            return timenow + "DBG %s -> %s" % (lookup_dbg_code(g[0]), g[1])
+            return timenow + "DBG %16s -> %s" % (lookup_dbg_code(g[0]), g[1])
         
         i2c_match = i2c_re.match(line)
         if i2c_match is not None:
             g = i2c_match.groups()
-            return timenow + "I2C {} {} {:08b}".format(lookup_fusb_reg(g[0]), rw_dir_sym[g[1].upper()], int(g[2],16))
+            return timenow + "I2C {:16s} {} {:08b}".format(lookup_fusb_reg(g[0]), rw_dir_sym[g[1].upper()], int(g[2],16))
     return timenow + "UNK " + line
 
 print("Opening %s at %d baud" % (port,baud))
