@@ -1,8 +1,3 @@
-const uint8_t cal_mode_pattern_2W5[] = { 10, 25, 50, 25, 0 };
-const uint8_t cal_mode_pattern_5W[] = { 10, 10, 10, 25, 50, 25, 0 };
-const uint8_t cal_mode_pattern_7W5[] = { 10, 10, 10, 10, 10, 25, 50, 25, 0 };
-const uint8_t cal_mode_pattern_done[] = { 100, 100, 0 };
-
 void calibration_setup() {
   printDebug(DBG_CALIBRATE, config.calibrate_mode);
 

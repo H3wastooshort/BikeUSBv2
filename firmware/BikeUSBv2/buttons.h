@@ -27,27 +27,29 @@ void button_setup() {
 
 void btn1_action() {
   switch (msm_state) {
-    case MSM_CONFIG_MODE:
-      config.calibrate_mode = 1;
-      storeConfig();
+    case MSM_CALIBRATION: break;
+    case MSM_CONFIGURATION:
+      btn_set_conf_mode(1);
       break;
     default: dumb_mode(); break;
   }
 }
 void btn2_action() {
   switch (msm_state) {
-    case MSM_CONFIG_MODE:
-      config.calibrate_mode = 2;
-      storeConfig();
+    case MSM_CALIBRATION: break;
+    case MSM_CONFIGURATION:
+      btn_set_conf_mode(2);
       break;
     default: dumb_mode(); break;
   }
 }
 void btn3_action() {
   switch (msm_state) {
-    case MSM_CONFIG_MODE:
-      config.calibrate_mode = 3;
-      storeConfig();
+    case MSM_CALIBRATION:
+      btn_set_conf_mode(0);
+      break;
+    case MSM_CONFIGURATION:
+      btn_set_conf_mode(3);
       break;
     default: break;
   }
