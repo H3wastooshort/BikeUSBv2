@@ -37,16 +37,6 @@ PDStack_SRC pd(fusb);
 #include "calibrate_mode.h"
 #include "main_state_machine.2.h"
 
-void btn1_isr() {  //reset everything
-  _PROTECTED_WRITE(WDT.CTRLA, WDT_PERIOD_8CLK_gc);
-  while (1) {}  //do nothing, wait for watchdog
-}
-
-void btn2_isr() {
-  msm_change_state(MSM_SWITCH_DUMB_MODE);
-}
-
-
 void setup() {
   _PROTECTED_WRITE(WDT.CTRLA, WDT_PERIOD_8KCLK_gc);
   wdt_reset();
@@ -76,6 +66,7 @@ void setup() {
   printDebug(DBG_BOOT, 0x01);
 
   //I2C
+  fusb_i2c.setStretchTimeout(10);
   fusb_i2c.begin();
   printDebug(DBG_BOOT, 0x02);
 
@@ -87,12 +78,9 @@ void setup() {
   printDebug(DBG_BOOT, 0x04);
 
   //buttons
-  //attachInterrupt(BTN1_PIN, btn1_isr, FALLING);
-  //attachInterrupt(BTN2_PIN, btn2_isr, FALLING);
+  button_setup();
 
   usr_led.setStatic(false);
-
-
   wdt_reset();
 
   printDebug(DBG_BOOT, 0x05);
@@ -101,11 +89,13 @@ void setup() {
 }
 
 void loop() {
+  //printDebug(DBG_LOOP, 0x00);
   run_msm();
   run_pd();
 
   usr_led.loop();
   pwr_led.loop();
+
   doDebugOutput();
   AC_new_meas_flag = false;  //anything using this should have run by now
 

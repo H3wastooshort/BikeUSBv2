@@ -50,3 +50,6 @@ public:
     digitalWrite(led_pin, s);
   }
 };
+
+//Patterns
+constexpr uint8_t led_pattern_quick_blinky[3] = {10,10,0};
