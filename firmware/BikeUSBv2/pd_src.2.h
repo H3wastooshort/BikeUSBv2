@@ -133,6 +133,7 @@ void on_message(uint8_t* msg, size_t len) {
 void fusb_int() {
   uint32_t interrupts = fusb.get_interrupts();
   printDebug(DBG_FUSB_INT, interrupts);
+  fusb.clear_interrupts();
   if (interrupts & FUSB_I_COMP_CHNG) {  //on at/detach
     if (fusb.find_cc_source() == 0) src_change_state(SRC_DETACHED);
   }
