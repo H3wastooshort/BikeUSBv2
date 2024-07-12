@@ -58,7 +58,17 @@ void setup() {
 
   Serial.pins(PIN_PA1, PIN_PA2);
   Serial.begin(38400);
+
+  Serial.println();
+  Serial.println();
+
   printDebug(DBG_RESET, GPIOR0);
+
+  Serial.println();
+  const char* boot_msg = "BikeUSBv2, complied ";
+  Serial.print(boot_msg);
+  Serial.print(__DATE__);
+  Serial.println();
   printDebug(DBG_BOOT, 0x00);
 
   //load conf
