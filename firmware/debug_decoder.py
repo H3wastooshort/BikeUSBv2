@@ -111,7 +111,7 @@ def parse_line(line):
         dbg_match = dbg_re.match(line)
         if dbg_match is not None:
             g = dbg_match.groups()
-            return timenow + "DBG %16s -> %s" % (lookup_dbg_code(g[0]), g[1])
+            return timenow + "DBG {:16s} -> {}".format(lookup_dbg_code(g[0]), g[1])
         
         i2c_match = i2c_re.match(line)
         if i2c_match is not None:
