@@ -1,4 +1,4 @@
-import sys, serial, re, os
+import sys, serial, re, os, time
 if (len(sys.argv) != 3):
     print("debug_decoder.py <port> <baudrate>")
     quit(1)
@@ -106,17 +106,18 @@ i2c_re = re.compile('^r([0-9A-F]{2})([RW])([0-9A-F]{2})', re.IGNORECASE) # 0 = r
 rw_dir_sym = {'R': '->', 'W': '<='}
 
 def parse_line(line):
+    timenow = time.strftime('%H:%M:%S') + ' '
     if len(line) >= 6: # len("XX -> ") == 6 == len("rXXxXX")
         dbg_match = dbg_re.match(line)
         if dbg_match is not None:
             g = dbg_match.groups()
-            return "DBG %s -> %s" % (lookup_dbg_code(g[0]), g[1])
+            return timenow + "DBG %s -> %s" % (lookup_dbg_code(g[0]), g[1])
         
         i2c_match = i2c_re.match(line)
         if i2c_match is not None:
             g = i2c_match.groups()
-            return "I2C {} {} {:08b}".format(lookup_fusb_reg(g[0]), rw_dir_sym[g[1].upper()], int(g[2],16))
-    return "UNK " + line
+            return timenow + "I2C {} {} {:08b}".format(lookup_fusb_reg(g[0]), rw_dir_sym[g[1].upper()], int(g[2],16))
+    return timenow + "UNK " + line
 
 print("Opening %s at %d baud" % (port,baud))
 ser = serial.Serial(port,baud)
