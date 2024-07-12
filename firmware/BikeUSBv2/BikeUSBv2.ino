@@ -38,7 +38,7 @@ PDStack_SRC pd(fusb);
 #include "main_state_machine.2.h"
 
 void btn1_isr() {  //reset everything
-  wdt_enable(WDTO_15MS);
+  _PROTECTED_WRITE(WDT.CTRLA, WDT_PERIOD_8CLK_gc);
   while (1) {}  //do nothing, wait for watchdog
 }
 
@@ -48,7 +48,7 @@ void btn2_isr() {
 
 
 void setup() {
-  wdt_enable(WDTO_2S);
+  _PROTECTED_WRITE(WDT.CTRLA, WDT_PERIOD_8KCLK_gc);
   wdt_reset();
 
   setupHardware();
@@ -62,7 +62,7 @@ void setup() {
   printDebug(DBG_BOOT, 0x00);
 
   //load conf
-  loadConfig();
+  if (!loadConfig()) storeConfig();
   printDebug(DBG_BOOT, 0x01);
 
   //I2C
@@ -82,6 +82,8 @@ void setup() {
 
   usr_led.setStatic(false);
 
+
+  wdt_reset();
 
   printDebug(DBG_BOOT, 0x05);
 
