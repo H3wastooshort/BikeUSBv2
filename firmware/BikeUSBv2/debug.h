@@ -9,6 +9,7 @@ enum debug_code_t {
 
   DBG_MSM_STATE = 64,
   DBG_FREQ = 64,
+  DBG_AC,
 
   DBG_PDO = 128,
   DBG_PD_ERR,

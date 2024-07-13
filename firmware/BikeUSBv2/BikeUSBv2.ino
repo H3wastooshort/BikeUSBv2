@@ -39,7 +39,7 @@ PDStack_SRC pd(fusb);
 #include "buttons.h"
 
 void setup() {
-  _PROTECTED_WRITE(WDT.CTRLA, WDT_PERIOD_8KCLK_gc);
+  _PROTECTED_WRITE(WDT.CTRLA, WDT_PERIOD_4KCLK_gc);
   wdt_reset();
 
   setupHardware();

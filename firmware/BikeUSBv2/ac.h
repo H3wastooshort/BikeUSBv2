@@ -16,6 +16,8 @@ bool AC_new_meas_flag = false;
 void AC_interrupt() {
   uint32_t pulsewidth = millis() - last_AC_interrupt;
   if (pulsewidth < AC_MIN_PULSEWIDTH) return;  //ignore
+  last_AC_interrupt = millis();
+  //printDebug(DBG_AC, pulsewidth);
 
   if (pulsewidth > AC_MAX_PULSEWIDTH) {  // freq too low
     AC_pulsewidths_index = 0;            //start measurement cycle over
@@ -36,16 +38,16 @@ void AC_interrupt() {
 
     AC_pulsewidths_index = 0;
   }
-  last_AC_interrupt = millis();
 }
 
 void initAC() {
   Comparator.input_p = comparator::in_p::in0;  //change this if you changed the ac measurement pin
 
   Comparator.output = comparator::out::disable;
-  Comparator.input_n = comparator::in_n::vref;
-  Comparator.reference = comparator::ref::vref_1v1;  //far enough from 0V and should always be accurate
-  Comparator.hysteresis = comparator::hyst::large;
+  Comparator.input_n = comparator::in_n::dacref;
+  Comparator.dacref = 32;  //v_thesh = 1.1 * (32/256) * 10 = 1.375V
+  Comparator.reference = comparator::ref::vref_1v1;
+  Comparator.hysteresis = comparator::hyst::medium;  // equal to 0.25V scaled
   Comparator.init();
   Comparator.start();
   Comparator.attachInterrupt(AC_interrupt, FALLING);
