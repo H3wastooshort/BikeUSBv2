@@ -47,7 +47,7 @@ void src_change_state(pd_src_state_t new_state) {
   //printDebug<uint8_t>(DBG_MSM_STATE, src_state);
   src_state = new_state;
   src_state_changed = true;
-  printDebug<uint8_t>(DBG_MSM_STATE, src_state);
+  printDebug<uint8_t>(DBG_SRC_STATE, src_state);
 }
 
 bool src_check_power() {

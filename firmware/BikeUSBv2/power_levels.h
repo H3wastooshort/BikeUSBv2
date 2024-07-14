@@ -7,7 +7,7 @@ enum chg_speed_t {
 bool level_cmp(const uint16_t thresh, const int8_t hyst) {
   if (thresh == 0) return false;
   if (hyst == 0) return AC_frequency > thresh;
-  else return AC_frequency > (thresh + (hyst * FREQ_HYST * thresh));
+  else return AC_frequency > (thresh + (hyst * FREQ_HYST * float(thresh)));
 }
 
 bool level_2W5_possible(const int8_t hyst = 0) {

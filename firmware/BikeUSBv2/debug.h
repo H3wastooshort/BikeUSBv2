@@ -8,6 +8,7 @@ enum debug_code_t {
   DBG_CALIBRATE = 32,
 
   DBG_MSM_STATE = 64,
+  DBG_SRC_STATE,
 
   DBG_FREQ = 96,
   DBG_AC,
@@ -15,6 +16,7 @@ enum debug_code_t {
 
   DBG_PDO = 128,
   DBG_PD_ERR,
+  DBG_POWER,
 
   DBG_FUSB_INT = 192,
 
