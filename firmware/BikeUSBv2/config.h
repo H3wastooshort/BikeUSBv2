@@ -19,3 +19,10 @@ void storeConfig() {
   EEPROM.put(0, config);
   EEPROM_markClean(&config, sizeof(config));
 }
+
+void dumpConfig() {
+  printDebug(DBG_CONFIG, config.calibrate_mode);
+  printDebug(DBG_CONFIG, config.min_speed_2W5);
+  printDebug(DBG_CONFIG, config.min_speed_5W);
+  printDebug(DBG_CONFIG, config.min_speed_7W5);
+}

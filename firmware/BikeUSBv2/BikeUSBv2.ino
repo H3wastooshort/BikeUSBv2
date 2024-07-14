@@ -64,6 +64,7 @@ void setup() {
 
   //load conf
   if (!loadConfig()) storeConfig();
+  dumpConfig();
   printDebug(DBG_BOOT, 0x01);
 
   //I2C
