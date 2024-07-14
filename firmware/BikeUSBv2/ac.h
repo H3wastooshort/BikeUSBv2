@@ -48,9 +48,11 @@ void AC_loop_counter() {
   if (!AC_pw_method) {
     uint32_t time_passed = millis() - last_AC_counter_calc;
     if (time_passed > AC_counter_interval) {
+      if (millis() - last_AC_interrupt > MAX_PW_FOR_CNT_METHOD) AC_pw_method = true; //don't lock up in cnt mode
+
       float timebase = float(time_passed) / 1000.0;
       AC_frequency = AC_counter / timebase;
-      
+
       printDebug(DBG_AC, AC_counter);
       printDebug(DBG_AC, time_passed);
 
@@ -65,7 +67,7 @@ void AC_loop_counter() {
 //Interrupt
 void AC_interrupt() {
   AC_counter++;
-  
+
   uint32_t pulsewidth = millis() - last_AC_interrupt;
   last_AC_interrupt = millis();
   //printDebug(DBG_AC, pulsewidth);
