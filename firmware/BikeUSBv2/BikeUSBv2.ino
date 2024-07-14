@@ -1,7 +1,7 @@
 /*
 megaTinyCore Board Config:
 BOD Mode = Active / Sampled (125Hz)
-BOD Voltage Level = 1.8V
+BOD Voltage Level = 2.6V
 Chip = ATtiny 1616
 Clock = 4Mhz Internal 
 millis()/micros() = Enabled (default timer) or maybe RTC (no micros). not sure yet
@@ -92,6 +92,8 @@ void setup() {
 
 void loop() {
   //printDebug(DBG_LOOP, 0x00);
+  AC_loop_counter();
+
   run_msm();
   run_pd();
 
