@@ -1,20 +1,18 @@
 //EEPROM Integrity Check
-#include "lib/crc32.h"
-//#include <EEPROM.h>
 
-#define CRC_POS ((EEPROM.length() - 1) - sizeof(crc))
+#define CRC_POS ((EEPROM.length() - 1) - sizeof(uint32_t))
 
-bool EEPROM_checkIntegrity(size_t len = 0XFFFF) {
-  uint32_t table[256];
-  crc32::generate_table(table);
-
+bool EEPROM_checkIntegrity(size_t len = 0xFFFF) {
   uint32_t crc;
   size_t pos = CRC_POS;
   EEPROM.get(pos, crc);
 
-  uint32_t crc2;
+
+  CRC32 crc32_inst;
+  crc32_inst.restart();
   size_t end = min(pos, len);
-  for (size_t i = 0; i < end; i++) crc2 = crc32::update(table, crc2, EEPROM.read(i));
+  for (size_t i = 0; i < end; i++) crc32_inst.add(EEPROM.read(i));
+  uint32_t crc2 = crc32_inst.calc();
 
   bool ok = crc == crc2;
   printDebug(DBG_EEPROM, crc);
@@ -23,26 +21,26 @@ bool EEPROM_checkIntegrity(size_t len = 0XFFFF) {
   return ok;
 }
 
-void EEPROM_markClean() {
-  uint32_t table[256];
-  crc32::generate_table(table);
-
-  uint32_t crc;
+void EEPROM_markClean(size_t len = 0xFFFF) {
+  CRC32 crc32_inst;
+  crc32_inst.restart();
   size_t pos = CRC_POS;
-  for (size_t i = 0; i < pos; i++) crc = crc32::update(table, crc, EEPROM.read(i));
+  size_t end = min(pos, len);
+  for (size_t i = 0; i < end; i++) crc32_inst.add(EEPROM.read(i));
+
+  uint32_t crc = crc32_inst.calc();
   EEPROM.put(pos, crc);
 
   printDebug(DBG_EEPROM, crc);
 }
 
 void EEPROM_markClean(const void* data, size_t len) {
-  uint32_t table[256];
-  crc32::generate_table(table);
-
-  uint32_t crc;
+  CRC32 crc32_inst;
+  crc32_inst.restart();
   size_t pos = CRC_POS;
-  //for (size_t i = 0; i < pos; i++) crc = crc32::update(table, crc, EEPROM.read(i));
-  crc = crc32::update(table, crc, data, len);
+  crc32_inst.add(data, len);
+
+  uint32_t crc = crc32_inst.calc();
   EEPROM.put(pos, crc);
 
   printDebug(DBG_EEPROM, crc);

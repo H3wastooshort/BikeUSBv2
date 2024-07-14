@@ -28,6 +28,14 @@ void dumpRAM() {
   Serial.println();
 }
 
+void dumpEEPROM() {
+  size_t len = EEPROM.length();
+  for (size_t b = 0; b < len; b++) {
+    Serial.printHex(EEPROM.read(b));
+    if (b + 1 < len) Serial.write(':');
+  }
+}
+
 void Serial_flushRX() {
   while (Serial.available()) Serial.read();
 }
@@ -39,6 +47,10 @@ void handleSerialCommands() {
       //Dump RAM
       dumpRAM();
       break;
+    case 'E':
+      //Dump EEPROM
+      dumpEEPROM();
+      break;
     case 'm':
       //set MSM state
       delay(100);
@@ -49,7 +61,6 @@ void handleSerialCommands() {
       delay(100);
       src_change_state(Serial.parseInt());
       break;
-    default:
-      Serial_flushRX();
   }
+  Serial_flushRX();
 }
