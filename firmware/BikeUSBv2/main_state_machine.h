@@ -23,7 +23,8 @@ enum msm_states_s {
 
   //misc
   MSM_CALIBRATION,
-  MSM_CONFIGURATION
+  MSM_CONFIGURATION,
+  MSM_NO_CAL
 
 } msm_state = MSM_START;
 

@@ -8,13 +8,15 @@ enum debug_code_t {
   DBG_CALIBRATE = 32,
 
   DBG_MSM_STATE = 64,
-  DBG_FREQ = 64,
+  DBG_FREQ,
   DBG_AC,
 
   DBG_PDO = 128,
   DBG_PD_ERR,
 
-  DBG_FUSB_INT = 192
+  DBG_FUSB_INT = 192,
+
+  DBG_CRIT_ERROR = 255
 };
 
 

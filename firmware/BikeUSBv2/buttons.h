@@ -40,7 +40,7 @@ void btn2_action() {
     case MSM_CONFIGURATION:
       btn_set_conf_mode(2);
       break;
-    default: dumb_mode(); break;
+    default: full_reset(); break;
   }
 }
 void btn3_action() {

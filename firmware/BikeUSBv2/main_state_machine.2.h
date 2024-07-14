@@ -1,6 +1,12 @@
 void run_msm() {
   switch (msm_state) {
     case MSM_START:
+      if (config.min_speed_2W5 >= 0xFFFF) {
+        usr_led.setPattern(led_pattern_quick_blinky);
+        pwr_led.setPattern(led_pattern_quick_blinky);
+        msm_change_state(MSM_NO_CAL);
+        return;
+      }
 
       //conf mode
       if (!AC_new_meas_flag) {  //wait for AC measurement
@@ -83,7 +89,7 @@ void run_msm() {
       fusb.enable_pullups();
       setPowerOutput(true);
       pwr_led.setStatic(false);
-      usr_led.setStatic(true);
+      //usr_led.setStatic(true);
       msm_change_state(MSM_DUMB_MODE);
       break;
     case MSM_DUMB_MODE:
@@ -92,5 +98,10 @@ void run_msm() {
 
     case MSM_CONFIGURATION: config_loop(); break;
     case MSM_CALIBRATION: calibration_loop(); break;
+    case MSM_NO_CAL: break;  //do nothing
+
+    default:
+      printDebug(DBG_CRIT_ERROR, 0x00);
+      break;
   }
 }
