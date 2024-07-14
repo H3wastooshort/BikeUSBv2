@@ -41,11 +41,8 @@ void run_msm() {
       if (level_7W5_possible(1)) msm_change_state(MSM_SWITCH_7W5);
       else if (level_5W_possible(1)) msm_change_state(MSM_SWITCH_5W);
       else if (level_2W5_possible(1)) msm_change_state(MSM_SWITCH_2W5);
-      else {
-        msm_change_state(MSM_POWERED_DOWN);
-        return;
-      }
-      src_change_state(SRC_DETACHED);
+      else msm_change_state(MSM_POWERED_DOWN);
+  
       break;
 
     //pre-charging
@@ -54,17 +51,17 @@ void run_msm() {
       break;
 
 
-    //digital (transient)
+    //switching while SRC_ACTIVE
     case MSM_SWITCH_2W5:
-      src_change_state(SRC_ADVERTIZE);
+      src_level_change();
       msm_change_state(MSM_2W5);
       break;
     case MSM_SWITCH_5W:
-      src_change_state(SRC_ADVERTIZE);
+      src_level_change();
       msm_change_state(MSM_5W);
       break;
     case MSM_SWITCH_7W5:
-      src_change_state(SRC_ADVERTIZE);
+      src_level_change();
       msm_change_state(MSM_7W5);
       break;
 

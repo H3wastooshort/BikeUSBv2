@@ -60,6 +60,11 @@ bool src_check_power() {
   return true;
 }
 
+void src_level_change() {
+  if (src_state == SRC_ACTIVE) src_change_state(SRC_ADVERTIZE);
+  else src_change_state(SRC_DETACHED);
+}
+
 void run_pd_src_sm() {
   static uint32_t last_adv = 0;
   switch (src_state) {
