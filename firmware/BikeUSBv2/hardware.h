@@ -25,6 +25,7 @@ const uint8_t CC_DAC_PIN = PIN_PA6;
 //====OTHER====
 
 const uint16_t MIN_INPUT_VOLTAGE = 3000;  //in mV, minimum MCU supply voltage needed to allow operation of device
+const float FREQ_HYST = 0.1; //10%
 
 //============
 

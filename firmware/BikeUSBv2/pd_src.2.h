@@ -71,7 +71,10 @@ void run_pd_src_sm() {
       break;
 
     case SRC_DETACHED:
-      if (isPowerGood())  //do nothing if power is bad
+      if (src_state_changed) {
+        setPowerOutput(true);
+      }
+      if (isPowerGood())  //do nothing while power is bad
         if (pd.attach_src()) {
           setPowerOutput(true);  //if pulldowns detected, turn on boost converter
           src_change_state(SRC_ADVERTIZE);
