@@ -45,9 +45,9 @@ void initAC() {
 
   Comparator.output = comparator::out::disable;
   Comparator.input_n = comparator::in_n::dacref;
-  Comparator.dacref = 32;  //v_thesh = 1.1 * (32/256) * 10 = 1.375V
+  Comparator.dacref = 48;  //v_thesh = 1.1 * (48/256) * 10 = 2.0625V
   Comparator.reference = comparator::ref::vref_1v1;
-  Comparator.hysteresis = comparator::hyst::medium;  // equal to 0.25V scaled
+  Comparator.hysteresis = comparator::hyst::large;  // equal to 0.5V scaled
   Comparator.init();
   Comparator.start();
   Comparator.attachInterrupt(AC_interrupt, FALLING);

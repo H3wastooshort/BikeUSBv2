@@ -34,20 +34,14 @@ void setupHardware() {
   digitalWrite(OUTPUT_ENABLE_PIN, LOW);
   pinMode(USR_LED_PIN, OUTPUT);
 
-  pinMode(AC_MEASURE_PIN, INPUT);
+  //pinMode(AC_MEASURE_PIN, INPUT);
   pinMode(OUTPUT_GOOD_PIN, INPUT_PULLUP);
   pinMode(BTN1_PIN, INPUT_PULLUP);
   pinMode(BTN2_PIN, INPUT_PULLUP);
 
   pinMode(FUSB_INT_PIN, INPUT_PULLUP);
 
-  //ADC0 / CC Pin DAC
+  //ADC0
   analogReadResolution(10);
   analogReference(INTERNAL2V5);  //set ADC reference to 2.5V as it covers the full range of CC voltages
-  /*//ADC1 / AC Measurement DAC
-  analogReadResolution1(8);
-  analogReference1(INTERNAL1v1); //set ADC reference to 1.1V as this should always be accurate*/
-
-  //DAC
-  DACReference(INTERNAL2V5);  //set DAC reference to 2.5V
 }
