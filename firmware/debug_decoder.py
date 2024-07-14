@@ -127,7 +127,7 @@ def parse_line(line):
         dbg_match = dbg_re.match(line)
         if dbg_match is not None:
             g = dbg_match.groups()
-            if g[1] == "DBG_MSM_STATE":
+            if lookup_dbg_code(g[0]) == "DBG_MSM_STATE":
                 return timenow + "DBG {:16s} -> {}".format(lookup_dbg_code(g[0]), lookup_msm_code(g[1]))
             else:
                 return timenow + "DBG {:16s} -> {}".format(lookup_dbg_code(g[0]), g[1])
@@ -147,5 +147,5 @@ while True:
     if len(line) > 3:
         try:
             print(parse_line(line.decode('ascii')))
-        except:
+        except UnicodeError:
             print("Decode ERROR! The MCU should only send ASCII, check wiring.")
