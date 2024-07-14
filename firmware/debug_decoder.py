@@ -45,9 +45,10 @@ def parse_enum(text):
 ###############
 # C++ parsing #
 ###############
-dbg_codes = {}
-
 print("Reading C++ files")
+
+#DBG
+dbg_codes = {}
 
 with open('BikeUSBv2/debug.h','r') as dbg_f:
     text = dbg_f.read()
@@ -61,7 +62,7 @@ def lookup_dbg_code(code):
     except KeyError:
         return code
 
-
+#I2C
 fusb_registers = {
     0x01: 'FUSB_DEVICE_ID',
     0x02: 'FUSB_SWITCHES0',
@@ -96,11 +97,26 @@ def lookup_fusb_reg(reg):
     except KeyError:
         return reg
 
+#MSM
+msm_codes={}
+with open('BikeUSBv2/main_state_machine.h','r') as msm_f:
+    text = msm_f.read()
+    enums = parse_enum(text)
+    msm_codes = enums["MSM_STATES_T"]
+
+def lookup_msm_code(code):
+    idx = int(code,16)
+    try:
+        return msm_codes[idx]
+    except KeyError:
+        return code
+
+
 ##################
 # serial parsing #
 ##################
 
-dbg_re = re.compile('^([0-9A-F]{2}) => ([0-9A-F]*)', re.IGNORECASE) #0 = code, 1 = value
+dbg_re = re.compile('^([0-9A-F]{2})=>([0-9A-F]*)', re.IGNORECASE) #0 = code, 1 = value
 i2c_re = re.compile('^r([0-9A-F]{2})([RW])([0-9A-F]{2})', re.IGNORECASE) # 0 = register, 1 = R/W, 2 = value
 
 rw_dir_sym = {'R': '->', 'W': '<='}
@@ -111,7 +127,10 @@ def parse_line(line):
         dbg_match = dbg_re.match(line)
         if dbg_match is not None:
             g = dbg_match.groups()
-            return timenow + "DBG {:16s} -> {}".format(lookup_dbg_code(g[0]), g[1])
+            if g[1] == "DBG_MSM_STATE":
+                return timenow + "DBG {:16s} -> {}".format(lookup_dbg_code(g[0]), lookup_msm_code(g[1]))
+            else:
+                return timenow + "DBG {:16s} -> {}".format(lookup_dbg_code(g[0]), g[1])
         
         i2c_match = i2c_re.match(line)
         if i2c_match is not None:
