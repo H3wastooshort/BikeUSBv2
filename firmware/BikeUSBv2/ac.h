@@ -28,15 +28,15 @@ void AC_interrupt() {
 
   AC_pulsewidths_index++;
 
-  if (AC_pulsewidths_index == AC_PULSEWIDTH_SLOTS) {
+  if (AC_pulsewidths_index >= AC_PULSEWIDTH_SLOTS) {
+    AC_pulsewidths_index = 0;
+
     uint32_t avg_pulsewidth = 0;
     for (uint8_t i = 0; i < AC_PULSEWIDTH_SLOTS; i++) avg_pulsewidth += last_AC_pulsewidths[i];
     avg_pulsewidth /= AC_PULSEWIDTH_SLOTS;
 
     AC_frequency = 1000 / avg_pulsewidth;
     AC_new_meas_flag = true;
-
-    AC_pulsewidths_index = 0;
   }
 }
 

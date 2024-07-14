@@ -97,6 +97,7 @@ void loop() {
   usr_led.loop();
   pwr_led.loop();
 
+  handleSerialCommands();
   doDebugOutput();
   AC_new_meas_flag = false;  //anything using this should have run by now
 

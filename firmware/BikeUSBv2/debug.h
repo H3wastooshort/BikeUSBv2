@@ -19,5 +19,3 @@ enum debug_code_t {
 
 
 template<typename T> void printDebug(debug_code_t code, T val);
-
-void doDebugOutput();
