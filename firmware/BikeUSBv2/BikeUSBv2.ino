@@ -56,9 +56,12 @@ void setup() {
   printDebug(DBG_RESET, GPIOR0);
 
   Serial.println();
-  const char* boot_msg = "BikeUSBv2, complied ";
+  const char* boot_msg = "BikeUSBv2, complied on ";
+  const char* boot_msg_2 = " at ";
   Serial.print(boot_msg);
   Serial.print(__DATE__);
+  Serial.print(boot_msg_2);
+  Serial.print(__TIME__);
   Serial.println();
   printDebug(DBG_BOOT, 0x00);
 
