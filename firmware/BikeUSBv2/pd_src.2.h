@@ -1,3 +1,5 @@
+//TODO: move parts of this into PD_Friend some day...
+
 using pdo_validate_callback_t = bool (*)(uint8_t*, size_t);
 
 void do_pd_msg_resp(uint8_t* msg, size_t len) {
