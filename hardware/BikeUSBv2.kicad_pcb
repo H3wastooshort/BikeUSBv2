@@ -3205,7 +3205,7 @@
 
   (footprint "Symbol:OSHW-Logo_5.7x6mm_SilkScreen" (layer "B.Cu")
     (tstamp 3d13bce2-c993-47db-9429-60fd62642a1c)
-    (at 124.3 92.9 180)
+    (at 123.2 93.2 180)
     (descr "Open Source Hardware Logo")
     (tags "Logo OSHW")
     (attr board_only exclude_from_pos_files exclude_from_bom)
