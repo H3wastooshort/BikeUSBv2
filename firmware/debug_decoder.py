@@ -117,7 +117,7 @@ def lookup_msm_code(code):
 ##################
 
 dbg_re = re.compile('^([0-9A-F]{2})=>([0-9A-F]*)', re.IGNORECASE) #0 = code, 1 = value
-i2c_re = re.compile('^r([0-9A-F]{2})([RW])([0-9A-F]{2})(-?)', re.IGNORECASE) # 0 = register, 1 = R/W, 2 = value
+i2c_re = re.compile('^r([0-9A-F]{2})([RW])([0-9A-F]{2})(-?)(S?)', re.IGNORECASE) # 0 = register, 1 = R/W, 2 = value
 
 rw_dir_sym = {'R': '->', 'W': '<='}
 
@@ -138,10 +138,12 @@ def parse_line(line):
             reg = lookup_fusb_reg(g[0])
             rw = rw_dir_sym[g[1].upper()]
             dat = int(g[2],16)
-            ok = ''
+            fails = ""
             if g[3] == '-':
-                ok = " FAIL!"
-            return timenow + "I2C {:16s} {} {:08b}{}".format(reg, rw, dat, ok)
+                fails += " FAIL!"
+            if g[4] == 'S':
+                fails += " stretch timeout"
+            return timenow + "I2C {:16s} {} {:08b}{}".format(reg, rw, dat, fails)
     return timenow + "UNK " + line
 
 print("Opening %s at %d baud" % (port,baud))
