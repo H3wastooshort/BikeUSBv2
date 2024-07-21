@@ -1,5 +1,6 @@
 # BikeUSB v2 *(WIP)*
 ![a rendered animation of the PCB roatating](https://h3wastooshort.github.io/BikeUSBv2/rotating.gif)
+
 Ever wanted to charge your phone of your bikes dynamo?
 This Project does just that, for cheap (ish).
 
