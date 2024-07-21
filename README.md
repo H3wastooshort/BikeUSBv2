@@ -1,11 +1,7 @@
 # BikeUSB v2 *(WIP)*
+![a rendered animation of the PCB roatating](https://h3wastooshort.github.io/BikeUSBv2/rotating.gif)
 Ever wanted to charge your phone of your bikes dynamo?
 This Project does just that, for cheap (ish).
-
-![a rendered image of the PCB front](https://h3wastooshort.github.io/BikeUSBv2/top.png)
-![a rendered image of the PCB back](https://h3wastooshort.github.io/BikeUSBv2/bottom.png)
-![a rendered animation of the PCB roatating](https://h3wastooshort.github.io/BikeUSBv2/rotating.gif)
-![the schematic](https://h3wastooshort.github.io/BikeUSBv2/BikeUSBv2.svg)
 
 ## Working Principle
 The incoming AC voltage from the dynamo gets rectified by 4 shottky-diodes and buffered in a high-capacity capacitor.
@@ -23,3 +19,9 @@ Connecting it back to a bike dynamo, it is now in calibration mode.
 The MCU will detect the needed speed to generate enough power for the prev. selected power level by connecting a 3W, 6W, or 9W constant power load and driving at a steadily increasing speed.
 Once the PowerGood signal does not drop out for 5 seconds with the load connected, a sufficient speed has been reached and is saved to EEPROM.
 
+## Schematic
+![the schematic](https://h3wastooshort.github.io/BikeUSBv2/BikeUSBv2.svg)
+
+## PCB
+![a rendered image of the PCB front](https://h3wastooshort.github.io/BikeUSBv2/top.png)
+![a rendered image of the PCB back](https://h3wastooshort.github.io/BikeUSBv2/bottom.png)
