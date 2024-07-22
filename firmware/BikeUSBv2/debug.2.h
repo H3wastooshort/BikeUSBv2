@@ -42,6 +42,7 @@ void Serial_flushRX() {
 void handleSerialCommands() {
   if (!Serial.available()) return;
   char cmd = Serial.read();
+  if (cmd != '/') return;
   switch (cmd) {
     case 'd':
       //Dump RAM
@@ -51,7 +52,7 @@ void handleSerialCommands() {
       //Dump EEPROM
       dumpEEPROM();
       break;
-    case 'm': //Ex. m3
+    case 'm':  //Ex. /m3
       //set MSM state
       delay(100);
       msm_change_state(Serial.parseInt());
@@ -61,9 +62,9 @@ void handleSerialCommands() {
       delay(100);
       src_change_state(Serial.parseInt());
       break;
-    case 'C': //Ex.: C200;400;800
+    case 'C':  //Ex.: /C200;400;800
       {
-        //set SRC state        
+        //set SRC state
         delay(100);
         auto i = Serial.parseInt();
         if (i < 0 || i > 0xFFFF) break;
