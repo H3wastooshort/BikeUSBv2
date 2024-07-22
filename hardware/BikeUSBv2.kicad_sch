@@ -5148,7 +5148,7 @@
   )
 
   (symbol (lib_id "Device:R") (at 30.48 77.47 180) (unit 1)
-    (in_bom yes) (on_board no) (dnp yes)
+    (in_bom yes) (on_board yes) (dnp no)
     (uuid fefbe530-6754-42f9-8f1d-e235e530591e)
     (property "Reference" "R14" (at 27.94 77.47 90)
       (effects (font (size 1.27 1.27)))
