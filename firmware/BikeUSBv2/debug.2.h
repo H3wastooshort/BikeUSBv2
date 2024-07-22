@@ -43,15 +43,15 @@ void handleSerialCommands() {
   if (!Serial.available()) return;
   char cmd = Serial.read();
   switch (cmd) {
-    case 'D':
+    case 'd':
       //Dump RAM
       dumpRAM();
       break;
-    case 'E':
+    case 'e':
       //Dump EEPROM
       dumpEEPROM();
       break;
-    case 'm':
+    case 'm': //Ex. m3
       //set MSM state
       delay(100);
       msm_change_state(Serial.parseInt());
@@ -61,6 +61,26 @@ void handleSerialCommands() {
       delay(100);
       src_change_state(Serial.parseInt());
       break;
+    case 'C': //Ex.: C200;400;800
+      {
+        //set SRC state        
+        delay(100);
+        auto i = Serial.parseInt();
+        if (i < 0 || i > 0xFFFF) break;
+        config.min_speed_2W5 = i;
+        delay(100);
+        i = Serial.parseInt();
+        if (i < 0 || i > 0xFFFF) break;
+        config.min_speed_5W = i;
+        delay(100);
+        i = Serial.parseInt();
+        if (i < 0 || i > 0xFFFF) break;
+        config.min_speed_7W5 = i;
+
+        config.calibrate_mode = 0;
+        storeConfig();
+      }
+      break;
   }
-  Serial_flushRX();
+  //Serial_flushRX();
 }
