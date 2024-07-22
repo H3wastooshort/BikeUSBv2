@@ -1892,7 +1892,7 @@
     (property "ki_keywords" "R res resistor")
     (path "/0d61e79e-be28-4719-9749-fda25dbc59a1")
     (attr smd)
-    (fp_text reference "R10" (at 2.5 -0.1 90) (layer "F.SilkS")
+    (fp_text reference "R10" (at 2.5 -0.3 90) (layer "F.SilkS")
         (effects (font (size 1 1) (thickness 0.15)))
       (tstamp a16d293c-6051-42d1-87e8-b1b1711b8fe2)
     )
@@ -7532,6 +7532,14 @@
     (stroke (width 0) (type solid)) (fill solid) (layer "B.Mask") (tstamp 4e3ee978-845e-44a7-8d17-7c5278596033))
   (gr_circle (center 127.8 102.2) (end 128.2 102.2)
     (stroke (width 0) (type solid)) (fill solid) (layer "B.Mask") (tstamp 8e277216-61f9-46be-8bf7-75cb74c3814f))
+  (gr_poly
+    (pts
+      (xy 153.2 107.5)
+      (xy 153.2 104.5)
+      (xy 150.2 107.5)
+    )
+
+    (stroke (width 0.2) (type solid)) (fill solid) (layer "B.Mask") (tstamp 948d1383-e33f-4093-aa37-c67ecd22a44d))
   (gr_rect (start 122.3 87.4) (end 126.5 89.2)
     (stroke (width 0.5) (type solid)) (fill solid) (layer "B.Mask") (tstamp f1a07833-f38d-4269-8131-fe0cfa36a3d6))
   (gr_rect (start 110 82.4) (end 153.6 107.9)
