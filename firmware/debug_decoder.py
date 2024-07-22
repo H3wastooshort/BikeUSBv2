@@ -3,7 +3,9 @@ if (len(sys.argv) != 3):
     print("debug_decoder.py <port> <baudrate>")
     quit(1)
 port = sys.argv[1]
-baud = int(sys.argv[2])
+baud = 38400
+if len(sys.argv[2]) > 0:
+    baud = int(sys.argv[2])
 
 abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
