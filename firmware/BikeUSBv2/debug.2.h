@@ -41,8 +41,8 @@ void Serial_flushRX() {
 }
 void handleSerialCommands() {
   if (!Serial.available()) return;
+  if (Serial.read() != '/') return;
   char cmd = Serial.read();
-  if (cmd != '/') return;
   switch (cmd) {
     case 'd':
       //Dump RAM
@@ -57,7 +57,7 @@ void handleSerialCommands() {
       delay(100);
       msm_change_state(Serial.parseInt());
       break;
-    case 's':
+    case 's':  //Ex.: /s0
       //set SRC state
       delay(100);
       src_change_state(Serial.parseInt());
