@@ -62,9 +62,24 @@ bool src_check_power() {
   return true;
 }
 
-void src_level_change() {
-  if (src_state == SRC_ACTIVE) src_change_state(SRC_ADVERTIZE);
-  else src_change_state(SRC_DETACHED);
+bool src_level_change() {  //change state if safe and return true, else return false
+  switch (src_state) {
+    case SRC_ACTIVE:
+      src_change_state(SRC_ADVERTIZE);
+      return true;
+      break;
+    case SRC_OFF:
+      src_change_state(SRC_DETACHED);
+      return true;
+      break;
+    case SRC_DETACHED:
+      return true;
+      break;
+
+    default:
+      return false;
+      break;
+  }
 }
 
 void run_pd_src_sm() {
