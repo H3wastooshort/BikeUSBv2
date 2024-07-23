@@ -87,6 +87,7 @@ void run_pd_src_sm() {
   switch (src_state) {
     case SRC_OFF:
       if (src_state_changed) {
+        pd.reset();
         pd.detach();
         setPowerOutput(false);
       }
@@ -138,6 +139,8 @@ void run_pd_src_sm() {
 }
 
 void on_message(uint8_t* msg, size_t len) {
+  printDebug(DBG_PD_MSG_IN, msg, len);
+
   if (PDStack::is_data_msg(msg, len)) switch (PDStack::get_data_msg_type(msg, len)) {
       case PDDM_Request:
         pd.send_ctrl_msg(PDCM_Accept);  //not checking lol (at least for now)

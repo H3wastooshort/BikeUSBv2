@@ -16,6 +16,9 @@ enum debug_code_t {
 
   DBG_PDO = 128,
   DBG_PD_ERR,
+  DBG_PD_MSG_IN,
+  DBG_PD_DATA_OUT,
+  DBG_PD_CTRL_OUT,
   DBG_POWER,
 
   DBG_FUSB_INT = 192,
@@ -25,3 +28,4 @@ enum debug_code_t {
 
 
 template<typename T> void printDebug(debug_code_t code, T val);
+void printDebug(debug_code_t code, void* val, size_t len);

@@ -6,6 +6,14 @@ template<typename T> void printDebug(debug_code_t code, T val) {
   Serial.println();
 }
 
+void printDebug(debug_code_t code, void* val, size_t len) {
+  Serial.println();
+  Serial.printHex((uint8_t)code);
+  Serial.print("=>");
+  Serial.printHex((uint8_t*)val, len);
+  Serial.println();
+}
+
 void doDebugOutput() {
   if (AC_new_meas_flag) printDebug(DBG_FREQ, AC_frequency);
 }

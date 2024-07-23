@@ -38,7 +38,7 @@ void EEPROM_markClean(const void* data, size_t len) {
   CRC32 crc32_inst;
   crc32_inst.restart();
   size_t pos = CRC_POS;
-  crc32_inst.add(data, len);
+  crc32_inst.add((uint8_t*)data, len);
 
   uint32_t crc = crc32_inst.calc();
   EEPROM.put(pos, crc);
